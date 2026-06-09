@@ -468,6 +468,86 @@
   /* ── Two-col client grid ── */
   .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 900px) { .client-grid { grid-template-columns: 1fr; } }
+
+  /* ── Code Block (monospace, expandable) ── */
+  .code-block {
+    background: #080810;
+    border: 1px solid var(--border-bright);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px 12px;
+    font-size: 11px;
+    color: #a0a8c8;
+    line-height: 1.65;
+    position: relative;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .code-block.expanded { max-height: 2000px; }
+  .code-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+    justify-content: flex-end;
+  }
+  .code-btn {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-bright);
+    background: var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .code-btn:hover { color: var(--text); border-color: #ffffff33; }
+  .code-btn.primary { background: #4d9fff22; border-color: #4d9fff44; color: var(--accent-blue); }
+  .code-btn.primary:hover { background: #4d9fff33; }
+
+  /* ── File Card ── */
+  .file-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .file-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .file-card-title { font-size: 13px; font-weight: 600; }
+  .file-card-sub { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+
+  /* ── Panel Tabs ── */
+  .panel-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .panel-tab {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    margin-bottom: -1px;
+  }
+  .panel-tab:hover { color: var(--text); }
+  .panel-tab.active { color: var(--text); border-bottom-color: var(--accent-blue); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
 </style>
 </head>
 <body>
@@ -587,6 +667,9 @@
           <button class="nav-item" id="navbtn-vs-javi" onclick="showPanel('vs-javi', this)">
             <span class="icon">✋</span> Javi Must Do
             <span class="nav-badge" id="badge-vs-javi">12</span>
+          </button>
+          <button class="nav-item" id="navbtn-vs-assets" onclick="showPanel('vs-assets', this)">
+            <span class="icon">📋</span> Schema &amp; Copy Assets
           </button>
           <button class="nav-item" id="navbtn-vs-platforms" onclick="showPanel('vs-platforms', this)">
             <span class="icon">🔗</span> Platform Status
@@ -909,79 +992,149 @@
     <div id="panel-vs-geo" class="panel">
       <div class="section-header">
         <h2>🤖 GEO Pipeline — VistaScapes</h2>
-        <p>What makes AI systems cite vistascapesdesign.com</p>
+        <p>What makes AI systems cite vistascapesdesign.com · Score 54 → 80</p>
       </div>
 
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="card-label">Current Score</div>
-          <div class="card-value" style="color:var(--accent-orange)">54</div>
-          <div class="card-sub">Poor → target 80+</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">AI Citability</div>
-          <div class="card-value" style="color:var(--accent-blue)">68</div>
-          <div class="card-sub">Cost pages strong</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">Brand Authority</div>
-          <div class="card-value" style="color:var(--accent-red)">22</div>
-          <div class="card-sub">No 3rd-party presence</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">Technical GEO</div>
-          <div class="card-value" style="color:var(--accent-green)">78</div>
-          <div class="card-sub">llms.txt ✅ robots.txt ✅</div>
-        </div>
+      <div class="panel-tabs">
+        <button class="panel-tab active" onclick="switchTab('panel-vs-geo','vs-geo-tab-scores',this)">Scores &amp; Roadmap</button>
+        <button class="panel-tab" onclick="switchTab('panel-vs-geo','vs-geo-tab-schema',this)">Schema Fixes</button>
+        <button class="panel-tab" onclick="switchTab('panel-vs-geo','vs-geo-tab-templates',this)">Copy Templates</button>
       </div>
 
-      <div class="task-group">
-        <div class="task-group-header"><h3>Claude Handles Automatically</h3><span class="tag tag-green">Automated</span></div>
-
-        <div class="task-item" style="cursor:default">
-          <div class="task-content">
-            <div class="task-title">✅ robots.txt — All AI crawlers whitelisted</div>
-            <div class="task-meta">GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Bytespider, ChatGPT-User, Amazonbot</div>
-          </div>
+      <!-- Tab 1: Scores -->
+      <div id="vs-geo-tab-scores" class="tab-content active">
+        <div class="info-grid">
+          <div class="info-card"><div class="card-label">Overall GEO</div><div class="card-value" style="color:var(--accent-orange)">54</div><div class="card-sub">Target 80+ in 60 days</div></div>
+          <div class="info-card"><div class="card-label">AI Citability</div><div class="card-value" style="color:var(--accent-blue)">68</div><div class="card-sub">Cost pages strong</div></div>
+          <div class="info-card"><div class="card-label">Brand Authority</div><div class="card-value" style="color:var(--accent-red)">22</div><div class="card-sub">No 3rd-party presence</div></div>
+          <div class="info-card"><div class="card-label">Technical GEO</div><div class="card-value" style="color:var(--accent-green)">78</div><div class="card-sub">llms.txt ✅ robots.txt ✅</div></div>
         </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content">
-            <div class="task-title">✅ llms.txt + llms-full.txt — Both live</div>
-            <div class="task-meta">Machine-readable business description for AI — rare advantage over local competitors</div>
-          </div>
+        <div class="task-group">
+          <div class="task-group-header"><h3>What Claude Has Already Deployed</h3><span class="tag tag-green">Live</span></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">✅ robots.txt — GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Bytespider all whitelisted</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">✅ llms.txt + llms-full.txt — Both live at vistascapesdesign.com/llms.txt</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">✅ 3,914 URLs submitted to IndexNow (Bing/Yandex)</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">✅ Pergola + Bixby city pages deployed (1,400+ words each)</div></div></div>
         </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content">
-            <div class="task-title">🔧 Schema deduplication — Pending (waiting for founding year)</div>
-            <div class="task-meta">Duplicate FAQPage on homepage + pergola · Paver patio has zero schema · Fix ready to push</div>
-          </div>
+        <div class="task-group">
+          <div class="task-group-header"><h3>Pending Your Info</h3><span class="tag tag-red">Blocking schema push</span></div>
+          <div class="task-item" style="cursor:default; background:#ff4d6d08; border-color:#ff4d6d22"><div class="task-content"><div class="task-title">🔒 Founding year (2018 or 2025?) → Claude fixes schema on all pages</div><div class="task-meta">Tell Claude in any session · Takes 5 min to push</div></div></div>
+          <div class="task-item" style="cursor:default; background:#ff4d6d08; border-color:#ff4d6d22"><div class="task-content"><div class="task-title">🔒 Google review count + star average → unlocks AggregateRating (star display in Google)</div><div class="task-meta">Tell Claude in any session · Takes 5 min to push</div></div></div>
         </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content">
-            <div class="task-title">🔧 Author bylines on all 4 service pages — Pending</div>
-            <div class="task-meta">Javi Uriostegui named on only 1 of 5 pages today</div>
-          </div>
+        <div class="task-group">
+          <div class="task-group-header"><h3>Score Roadmap</h3></div>
+          <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022"><div class="task-content"><div class="task-title">Week 2: Platform claims + schema fixes → 64/100</div><div class="task-meta">Houzz + Yelp + Bing Places + schema push</div></div></div>
+          <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22"><div class="task-content"><div class="task-title">Month 2: 25+ reviews + 8 blog posts → 72/100</div></div></div>
+          <div class="task-item" style="cursor:default; background:#a78bfa08; border-color:#a78bfa22"><div class="task-content"><div class="task-title">Month 3: Press mention + case studies → 80/100</div></div></div>
         </div>
       </div>
 
-      <div class="task-group">
-        <div class="task-group-header"><h3>GEO Score Projection</h3></div>
-        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
-          <div class="task-content">
-            <div class="task-title">After platform claims + schema fixes → 64/100 (Week 2)</div>
-            <div class="task-meta">Houzz + Yelp + Bing Places + schema fixed = +10 points</div>
+      <!-- Tab 2: Schema Fixes -->
+      <div id="vs-geo-tab-schema" class="tab-content">
+        <div class="task-group">
+          <div class="task-group-header"><h3>How to Deploy Schema Fixes</h3></div>
+          <div class="task-item" style="cursor:default">
+            <div class="task-content">
+              <div class="task-title">Step 1 — Tell Claude your founding year + review count + GBP review link</div>
+              <div class="task-meta">That's the only blocker. Once you give Claude those 3 things it pushes all 12 fixes to WordPress in one session.</div>
+            </div>
+          </div>
+          <div class="task-item" style="cursor:default">
+            <div class="task-content">
+              <div class="task-title">Step 2 — Claude pushes via WP REST API (no login needed from you)</div>
+              <div class="task-meta">Schema pushed directly to the _vistascapes_faq_schema meta keys · Rocket.net CDN purged after each push</div>
+            </div>
           </div>
         </div>
-        <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22">
-          <div class="task-content">
-            <div class="task-title">After 25+ reviews + weekly content → 72/100 (Month 2)</div>
-            <div class="task-meta">Review volume + fresh content = +8 points</div>
+
+        <div class="file-card">
+          <div class="file-card-header">
+            <span class="file-card-title">Ask Claude to Fix Schema — Copy This Prompt</span>
+          </div>
+          <div class="file-card-sub">Paste into any Claude Code session after providing the info</div>
+          <div class="code-block" id="vs-schema-prompt">Push all VistaScapes schema fixes. Here's the info you needed:
+- Founding year: [YOUR ANSWER]
+- Google reviews: [COUNT] reviews at [STARS] stars average
+- GBP review link: [YOUR LINK]
+
+Fix in this order:
+1. Duplicate FAQPage on homepage (remove second block)
+2. Duplicate FAQPage on pergola page
+3. Add AggregateRating with the review data above
+4. Add LocalBusiness schema to paver patio page (it has none)
+5. Fix foundingDate inconsistency across all service pages
+6. Add author bylines to all 4 service pages (Javi Uriostegui)
+Purge Rocket.net CDN after each push.</div>
+          <div class="code-actions">
+            <button class="code-btn" onclick="toggleExpand('vs-schema-prompt',this)">Expand</button>
+            <button class="code-btn primary" onclick="copyCode('vs-schema-prompt',this)">Copy</button>
           </div>
         </div>
-        <div class="task-item" style="cursor:default; background:#a78bfa08; border-color:#a78bfa22">
-          <div class="task-content">
-            <div class="task-title">After 1 press mention + case studies → 80/100 (Month 3)</div>
-            <div class="task-meta">Earned media = biggest single GEO jump possible</div>
+
+        <div class="file-card">
+          <div class="file-card-header">
+            <span class="file-card-title">AggregateRating Schema Snippet</span>
+          </div>
+          <div class="file-card-sub">Paste inside the LocalBusiness schema on every page · Fill in reviewCount and ratingValue</div>
+          <div class="code-block" id="vs-agg-schema">"aggregateRating": {
+  "@type": "AggregateRating",
+  "ratingValue": "X.X",
+  "reviewCount": "XX",
+  "bestRating": "5",
+  "worstRating": "1"
+}</div>
+          <div class="code-actions">
+            <button class="code-btn primary" onclick="copyCode('vs-agg-schema',this)">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Templates -->
+      <div id="vs-geo-tab-templates" class="tab-content">
+        <div class="file-card">
+          <div class="file-card-header">
+            <span class="file-card-title">Review Request Text (Friday send)</span>
+          </div>
+          <div class="file-card-sub">Personalize [Name], [city], [project type], [link]</div>
+          <div class="code-block" id="vs-review-text">Hey [Name]! Quick favor — would you take 60 seconds to leave a Google review for us? Just mentioning [Broken Arrow / Tulsa / Bixby] and the type of project ([outdoor kitchen / pergola / patio]) helps neighbors find us when they're searching. Here's the direct link: [YOUR GBP REVIEW LINK]
+
+Really appreciate you choosing VistaScapes — it was a pleasure working on your project!</div>
+          <div class="code-actions">
+            <button class="code-btn primary" onclick="copyCode('vs-review-text',this)">Copy</button>
+          </div>
+        </div>
+
+        <div class="file-card">
+          <div class="file-card-header">
+            <span class="file-card-title">GBP Post Template (Wednesday — Claude generates, Friday you post)</span>
+          </div>
+          <div class="file-card-sub">Ask Claude: "Write this week's GBP post for [service] in [city]"</div>
+          <div class="code-block" id="vs-gbp-prompt">Write a Google Business Profile post for VistaScapes & Design.
+
+Service: [outdoor kitchen / pergola / paver patio / retaining wall]
+City/neighborhood: [Broken Arrow / Bixby / Jenks / Tulsa / specific subdivision]
+Project detail if known: [materials, size, special features]
+
+Requirements:
+- Start with: "Just completed a [service] in [city]..."
+- 750–1,000 characters total
+- Include one specific material or brand (Belgard, Blaze, Techo-Bloc, Solus, Volt)
+- End with CTA to book a free design consultation
+- No "stunning transformation" or "dream backyard"</div>
+          <div class="code-actions">
+            <button class="code-btn" onclick="toggleExpand('vs-gbp-prompt',this)">Expand</button>
+            <button class="code-btn primary" onclick="copyCode('vs-gbp-prompt',this)">Copy</button>
+          </div>
+        </div>
+
+        <div class="file-card">
+          <div class="file-card-header">
+            <span class="file-card-title">Review Response Template (5-star)</span>
+          </div>
+          <div class="file-card-sub">Respond within 24 hrs · Include city + service + call to action</div>
+          <div class="code-block" id="vs-review-response">Thank you so much, [Name]! It was a pleasure working on your [project type] in [city/neighborhood]. We take a lot of pride in making sure every [outdoor kitchen / patio / pergola] is built right the first time — hearing that you're happy with how it turned out means everything to our team. If your neighbors ever need outdoor living work in [city], we'd love to help. Appreciate you taking the time to share your experience!</div>
+          <div class="code-actions">
+            <button class="code-btn primary" onclick="copyCode('vs-review-response',this)">Copy</button>
           </div>
         </div>
       </div>
@@ -991,75 +1144,218 @@
     <div id="panel-vs-seo" class="panel">
       <div class="section-header">
         <h2>📈 SEO Content Queue — VistaScapes</h2>
-        <p>8-week blog post schedule — Claude writes, you publish Monday</p>
+        <p>8-week blog post schedule · Each post has a ready-to-copy Claude prompt</p>
       </div>
 
       <div class="task-group">
-        <div class="task-group-header"><h3>Blog Posts — In Order of Priority</h3><span class="tag tag-blue">Claude generates · You publish</span></div>
+        <div class="task-group-header"><h3>How It Works</h3></div>
+        <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22">
+          <div class="task-content">
+            <div class="task-title">Monday: Copy the prompt below → paste into Claude → Claude writes the full post → you paste into WordPress + publish</div>
+            <div class="task-meta">Each post takes Claude ~2 min to write · You spend 5 min publishing · Schema included in Claude's output</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-group">
+        <div class="task-group-header"><h3>Posts — Click to check off, expand for Claude prompt</h3><span class="tag tag-blue">8 posts · 8 weeks</span></div>
 
         <div class="task-item" id="vs-s1" onclick="toggle('vs-s1','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 1 — "Paver Patio Cost in Tulsa 2026 (Complete Guide)"</div>
-            <div class="task-meta">Targets keyword Arrow Outdoor Living doesn't own · 2,000+ words</div>
+            <div class="task-meta">Targets keyword Arrow Outdoor Living doesn't own · 2,000+ words · Highest priority</div>
+            <div class="code-block" id="seo-p1" style="margin-top:8px">Write a 2,000-word SEO blog post for vistascapesdesign.com titled "Paver Patio Cost in Tulsa 2026 (Complete Guide)".
+
+Target keyword: paver patio cost Tulsa
+Secondary: paver patio installation Tulsa, how much does a paver patio cost Oklahoma
+
+Requirements:
+- Include price ranges: basic stamped concrete alt ($8–15/sqft), standard pavers ($15–25/sqft), premium Belgard/Techo-Bloc ($25–45/sqft)
+- Mention Oklahoma-specific factors: red clay soil prep, freeze-thaw cycles, drainage requirements
+- Include a comparison table: pavers vs concrete vs stamped concrete
+- Add 5–7 FAQ questions with answers (these become FAQPage schema)
+- End with CTA to request a free estimate
+- Write in confident, premium tone — never "cheap" or "affordable"
+- Include a JSON-LD FAQPage schema block at the end</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('seo-p1',this);event.stopPropagation()">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('seo-p1',this);event.stopPropagation()">Copy prompt</button>
+            </div>
           </div>
-          <div class="task-right"><span class="time-badge">High impact</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+          <div class="task-right"><span class="time-badge">Week 1</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
         </div>
+
         <div class="task-item" id="vs-s2" onclick="toggle('vs-s2','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 2 — "Outdoor Kitchen vs. Covered Patio: Which Adds More Value in Tulsa?"</div>
-            <div class="task-meta">Comparison content · High AI citability</div>
+            <div class="task-meta">Comparison content · High AI citability · Decision guide format</div>
+            <div class="code-block" id="seo-p2" style="margin-top:8px">Write a 1,800-word SEO blog post for vistascapesdesign.com titled "Outdoor Kitchen vs. Covered Patio: Which Adds More Value in Tulsa?"
+
+Target keyword: outdoor kitchen vs covered patio Tulsa
+Secondary: outdoor kitchen cost Tulsa, covered patio addition value Oklahoma
+
+Requirements:
+- Compare ROI: outdoor kitchens typically add $20K–$50K in home value; covered patios $15K–$30K in Tulsa market
+- Factor in Oklahoma climate (outdoor kitchens: 8-month season; covered patio: usable year-round)
+- Include a decision matrix (budget, lifestyle, resale timeline)
+- 4–6 FAQ block at end
+- Mention Broken Arrow and South Tulsa neighborhoods specifically
+- JSON-LD FAQPage schema at end</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('seo-p2',this);event.stopPropagation()">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('seo-p2',this);event.stopPropagation()">Copy prompt</button>
+            </div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+          <div class="task-right"><span class="time-badge">Week 2</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
         </div>
+
         <div class="task-item" id="vs-s3" onclick="toggle('vs-s3','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 3 — "Best Pergola Materials for Oklahoma Weather"</div>
-            <div class="task-meta">Cedar vs Aluminum vs Vinyl · ASCE wind load data</div>
+            <div class="task-meta">Cedar vs Aluminum vs Vinyl · ASCE wind load data · High AI citability</div>
+            <div class="code-block" id="seo-p3" style="margin-top:8px">Write a 1,600-word SEO blog post for vistascapesdesign.com titled "Best Pergola Materials for Oklahoma Weather (2026 Guide)".
+
+Target keyword: best pergola materials Oklahoma
+Secondary: pergola installation Tulsa, cedar vs aluminum pergola Oklahoma
+
+Requirements:
+- Compare: cedar wood, aluminum, vinyl, fiberglass
+- Oklahoma-specific factors: ASCE 7 wind zone (90–100 mph design wind speed Tulsa area), summer heat expansion, ice storm weight load, UV degradation
+- Cost per material type with installation: cedar $8K–$15K, aluminum $12K–$20K, vinyl $10K–$18K
+- Maintenance requirements table
+- FAQ section (5 questions)
+- JSON-LD FAQPage schema at end</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('seo-p3',this);event.stopPropagation()">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('seo-p3',this);event.stopPropagation()">Copy prompt</button>
+            </div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+          <div class="task-right"><span class="time-badge">Week 3</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
+
         <div class="task-item" id="vs-s4" onclick="toggle('vs-s4','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 4 — "How Long Does It Take to Build an Outdoor Kitchen in Broken Arrow?"</div>
-            <div class="task-meta">FAQ-style · High Perplexity citation probability</div>
+            <div class="task-meta">FAQ-style · High Perplexity citation probability · Broken Arrow local anchor</div>
+            <div class="code-block" id="seo-p4" style="margin-top:8px">Write a 1,400-word SEO blog post for vistascapesdesign.com titled "How Long Does It Take to Build an Outdoor Kitchen in Broken Arrow?"
+
+Target keyword: how long does it take to build outdoor kitchen Broken Arrow
+Secondary: outdoor kitchen construction timeline Oklahoma, outdoor kitchen contractor Broken Arrow
+
+Requirements:
+- Break down timeline phases: design/planning (2–4 weeks), permit (1–3 weeks Broken Arrow), demo/prep (1–2 days), framing (2–4 days), countertop/finish (1–2 weeks), appliance install (1 day)
+- Total: 6–12 weeks from contract to completion
+- Factors that extend timeline: custom fabrication, supply chain, permit delays
+- Mention Battle Creek and Forest Ridge subdivisions in Broken Arrow
+- FAQ section (5–6 questions) with JSON-LD schema at end</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('seo-p4',this);event.stopPropagation()">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('seo-p4',this);event.stopPropagation()">Copy prompt</button>
+            </div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+          <div class="task-right"><span class="time-badge">Week 4</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
+
         <div class="task-item" id="vs-s5" onclick="toggle('vs-s5','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 5 — "Retaining Wall vs French Drain: Which Does Your Tulsa Yard Need?"</div>
-            <div class="task-meta">Decision guide · Red clay soil Oklahoma searches</div>
+            <div class="task-meta">Decision guide · Oklahoma red clay soil drainage searches</div>
+            <div class="code-block" id="seo-p5" style="margin-top:8px">Write a 1,600-word SEO blog post for vistascapesdesign.com titled "Retaining Wall vs French Drain: Which Does Your Tulsa Yard Need?"
+
+Target keyword: retaining wall vs french drain Tulsa
+Secondary: yard drainage solutions Tulsa Oklahoma, retaining wall cost Tulsa
+
+Requirements:
+- Explain when each solution is right (slope >2ft elevation change = retaining wall; subsurface water = french drain; both often needed together)
+- Oklahoma-specific: Tulsa's expansive red clay soil, heavy spring rain events, standing water issues
+- Cost ranges: retaining wall $30–$60/sqft installed; french drain $1,500–$5,000
+- Include a simple decision flowchart (describe in text)
+- FAQ section (5 questions) with JSON-LD schema</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('seo-p5',this);event.stopPropagation()">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('seo-p5',this);event.stopPropagation()">Copy prompt</button>
+            </div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+          <div class="task-right"><span class="time-badge">Week 5</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
         </div>
+
         <div class="task-item" id="vs-s6" onclick="toggle('vs-s6','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 6 — "Outdoor Kitchen Contractors in Tulsa: What to Look for (and Avoid)"</div>
-            <div class="task-meta">Defensive content · Positions VistaScapes as standard-setter</div>
+            <div class="task-meta">Defensive content · Positions VistaScapes as the standard</div>
+            <div class="code-block" id="seo-p6" style="margin-top:8px">Write a 1,800-word SEO blog post for vistascapesdesign.com titled "Outdoor Kitchen Contractors in Tulsa: What to Look for (and Avoid)".
+
+Target keyword: outdoor kitchen contractors Tulsa
+Secondary: best outdoor kitchen contractor Tulsa OK, outdoor kitchen installation Tulsa
+
+Requirements:
+- 5 things to look for: portfolio of completed local projects, experience with Oklahoma climate-specific construction, licensed/insured (include what to verify), clear written scope of work, warranty on labor + materials
+- 5 red flags: no local portfolio, vague pricing, no permit knowledge, pressure to sign immediately, unlicensed subs
+- Position VistaScapes naturally: "At VistaScapes, we do X" without making it an ad
+- FAQ (5 questions) with JSON-LD schema
+- CTA at end: free design consultation Broken Arrow / Tulsa</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('seo-p6',this);event.stopPropagation()">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('seo-p6',this);event.stopPropagation()">Copy prompt</button>
+            </div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+          <div class="task-right"><span class="time-badge">Week 6</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
         </div>
+
         <div class="task-item" id="vs-s7" onclick="toggle('vs-s7','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 7 — "Belgard vs Techo-Bloc Pavers: Which Is Better for Oklahoma?"</div>
-            <div class="task-meta">Brand comparison · Highly citable specific data</div>
+            <div class="task-meta">Brand comparison · Very high AI citability · Specific data</div>
+            <div class="code-block" id="seo-p7" style="margin-top:8px">Write a 1,600-word SEO blog post for vistascapesdesign.com titled "Belgard vs Techo-Bloc Pavers: Which Is Better for Oklahoma?"
+
+Target keyword: Belgard vs Techo-Bloc pavers Oklahoma
+Secondary: best pavers for Oklahoma climate, paver brands Tulsa
+
+Requirements:
+- Compare: PSI rating, freeze-thaw cycle resistance, color range, texture options, price per sqft, local availability in Tulsa/OKC market
+- Oklahoma-specific: freeze-thaw cycles, extreme heat expansion, limestone base recommendation for OK soil
+- Which wins for: driveways (Belgard Mega-Arbel or Techo-Bloc Blu 60?), patios, pool decks, walkways
+- Include actual product names (not generic)
+- FAQ (5 questions) with JSON-LD schema
+- Note VistaScapes is certified to install both</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('seo-p7',this);event.stopPropagation()">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('seo-p7',this);event.stopPropagation()">Copy prompt</button>
+            </div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-purple)"></div></div>
+          <div class="task-right"><span class="time-badge">Week 7</span><div class="priority-dot" style="background:var(--accent-purple)"></div></div>
         </div>
+
         <div class="task-item" id="vs-s8" onclick="toggle('vs-s8','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 8 — "How Much Does a Pavilion Cost in Tulsa? (2026 Pricing Guide)"</div>
-            <div class="task-meta">Completes the pricing guide suite</div>
+            <div class="task-meta">Completes the pricing guide suite · High commercial intent</div>
+            <div class="code-block" id="seo-p8" style="margin-top:8px">Write a 1,800-word SEO blog post for vistascapesdesign.com titled "How Much Does a Pavilion Cost in Tulsa? (2026 Pricing Guide)".
+
+Target keyword: pavilion cost Tulsa
+Secondary: outdoor pavilion installation Tulsa OK, covered pavilion price Oklahoma
+
+Requirements:
+- Price tiers: basic wood frame 12x16 ($8K–$15K), mid-range with electrical + ceiling fan ($18K–$30K), premium with TV/sound/outdoor fireplace ($35K–$70K+)
+- Material comparison: pressure-treated pine, cedar, aluminum, engineered wood
+- Oklahoma factors: wind load engineering, foundation requirements for expansive clay soil, permit requirements in Tulsa/Broken Arrow/Bixby
+- Pavilion vs pergola vs gazebo comparison table
+- FAQ (6 questions) with JSON-LD schema
+- CTA: free backyard consultation</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('seo-p8',this);event.stopPropagation()">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('seo-p8',this);event.stopPropagation()">Copy prompt</button>
+            </div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-purple)"></div></div>
+          <div class="task-right"><span class="time-badge">Week 8</span><div class="priority-dot" style="background:var(--accent-purple)"></div></div>
         </div>
       </div>
     </div>
@@ -1132,6 +1428,160 @@
         <div class="task-item" id="vs-j12" onclick="toggle('vs-j12','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content"><div class="task-title">Meta Ads — say "approved, launch it" when ready</div><div class="task-meta">4 campaigns built + paused · $50/day budget · ElevenLabs VO still needed</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS: Schema & Assets -->
+    <div id="panel-vs-assets" class="panel">
+      <div class="section-header">
+        <h2>📋 Schema &amp; Copy Assets — VistaScapes</h2>
+        <p>All ready-to-use files, schema snippets, and templates in one place</p>
+      </div>
+
+      <div class="panel-tabs">
+        <button class="panel-tab active" onclick="switchTab('panel-vs-assets','vs-assets-tab-schema',this)">Schema Files</button>
+        <button class="panel-tab" onclick="switchTab('panel-vs-assets','vs-assets-tab-blog',this)">Blog Prompts</button>
+        <button class="panel-tab" onclick="switchTab('panel-vs-assets','vs-assets-tab-city',this)">City Pages</button>
+      </div>
+
+      <!-- Tab: Schema Files -->
+      <div id="vs-assets-tab-schema" class="tab-content active">
+        <div class="file-card">
+          <div class="file-card-header"><span class="file-card-title">LocalBusiness Schema — All Service Pages</span></div>
+          <div class="file-card-sub">Base schema block · Replace [FOUNDING_YEAR], [REVIEW_COUNT], [STAR_RATING], [GBP_URL] when known</div>
+          <div class="code-block" id="vs-lb-schema">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://vistascapesdesign.com/#business",
+  "name": "VistaScapes &amp; Design",
+  "description": "Premium outdoor living contractor serving Tulsa, Broken Arrow, Bixby, Jenks, and surrounding communities. Specializing in outdoor kitchens, pergolas, paver patios, pavilions, retaining walls, and full backyard transformations.",
+  "url": "https://vistascapesdesign.com",
+  "telephone": "+19183554551",
+  "foundingDate": "[FOUNDING_YEAR]",
+  "priceRange": "$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Broken Arrow",
+    "addressRegion": "OK",
+    "postalCode": "74012",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    {"@type": "City", "name": "Broken Arrow", "addressRegion": "OK"},
+    {"@type": "City", "name": "Tulsa", "addressRegion": "OK"},
+    {"@type": "City", "name": "Bixby", "addressRegion": "OK"},
+    {"@type": "City", "name": "Jenks", "addressRegion": "OK"},
+    {"@type": "City", "name": "Owasso", "addressRegion": "OK"}
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "[STAR_RATING]",
+    "reviewCount": "[REVIEW_COUNT]",
+    "bestRating": "5"
+  },
+  "sameAs": [
+    "[GBP_URL]",
+    "https://www.facebook.com/vistascapesdesign",
+    "https://www.houzz.com/pro/vistascapesdesign"
+  ]
+}
+&lt;/script&gt;</div>
+          <div class="code-actions">
+            <button class="code-btn" onclick="toggleExpand('vs-lb-schema',this)">Expand</button>
+            <button class="code-btn primary" onclick="copyCode('vs-lb-schema',this)">Copy</button>
+          </div>
+        </div>
+
+        <div class="file-card">
+          <div class="file-card-header"><span class="file-card-title">llms.txt — Verify It's Live</span></div>
+          <div class="file-card-sub">Should be live at vistascapesdesign.com/llms.txt — check anytime</div>
+          <div class="code-block" id="vs-llms-check">Ask Claude: "Verify that vistascapesdesign.com/llms.txt and llms-full.txt are both live and returning the correct content. Check the robots.txt to confirm all AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Bytespider) are whitelisted."</div>
+          <div class="code-actions">
+            <button class="code-btn primary" onclick="copyCode('vs-llms-check',this)">Copy prompt</button>
+          </div>
+        </div>
+
+        <div class="file-card">
+          <div class="file-card-header"><span class="file-card-title">Push All Schema Fixes (Once You Have Founding Year + Reviews)</span></div>
+          <div class="file-card-sub">Paste this into Claude Code after providing the 3 missing pieces</div>
+          <div class="code-block" id="vs-schema-push">Push all pending VistaScapes schema fixes to WordPress:
+
+Info:
+- Founding year: [2018 or 2025]
+- Google reviews: [X] at [X.X] stars
+- GBP direct review link: [URL]
+
+Fix list:
+1. Fix duplicate FAQPage schema on homepage (remove second block)
+2. Fix duplicate FAQPage on pergola page
+3. Add AggregateRating schema to homepage, outdoor kitchen page, pergola page, paver patio page
+4. Fix foundingDate inconsistency (use founding year above, consistently)
+5. Add complete LocalBusiness schema to paver patio page (currently has none)
+6. Add author byline markup to all service pages (Person: Javi Uriostegui)
+7. Purge Rocket.net CDN after each push
+
+Use WP REST API with stored credentials. Update _vistascapes_faq_schema meta key per page.</div>
+          <div class="code-actions">
+            <button class="code-btn" onclick="toggleExpand('vs-schema-push',this)">Expand</button>
+            <button class="code-btn primary" onclick="copyCode('vs-schema-push',this)">Copy prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Blog Prompts -->
+      <div id="vs-assets-tab-blog" class="tab-content">
+        <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22; margin-bottom:16px">
+          <div class="task-content"><div class="task-title">Every Monday: copy the prompt for this week's post → paste into Claude → publish in WordPress</div><div class="task-meta">All 8 prompts are in the SEO Content Queue panel · Each one generates a 1,400–2,000 word post with FAQPage schema included</div></div>
+        </div>
+        <div class="file-card">
+          <div class="file-card-header"><span class="file-card-title">Weekly Blog Publish Instructions for WordPress</span></div>
+          <div class="file-card-sub">Tell Claude this after it writes the post</div>
+          <div class="code-block" id="vs-wp-publish">Publish this blog post to vistascapesdesign.com via WP REST API:
+- Category: Blog
+- Status: publish
+- Include the FAQPage JSON-LD schema block in the post content
+- Add Yoast SEO focus keyphrase: [main keyword]
+- Add meta description: [first 155 chars of intro, ending with ...]
+- Featured image: I'll add manually
+- After publishing, submit the new URL to IndexNow</div>
+          <div class="code-actions">
+            <button class="code-btn primary" onclick="copyCode('vs-wp-publish',this)">Copy prompt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: City Pages -->
+      <div id="vs-assets-tab-city" class="tab-content">
+        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022; margin-bottom:16px">
+          <div class="task-content"><div class="task-title">✅ Pergola Builder Bixby OK — Live (#150745)</div><div class="task-meta">1,457 words · 10/10 gates · Deployed</div></div>
+        </div>
+        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022; margin-bottom:16px">
+          <div class="task-content"><div class="task-title">✅ Pergola Builder Owasso OK — Live (#150746)</div><div class="task-meta">1,502 words · 10/10 gates · Deployed</div></div>
+        </div>
+        <div class="file-card">
+          <div class="file-card-header"><span class="file-card-title">Build Next City Page — Claude Prompt</span></div>
+          <div class="file-card-sub">Use for any service + city combination</div>
+          <div class="code-block" id="vs-city-prompt">Build and deploy a city service page for vistascapesdesign.com.
+
+Service: [outdoor kitchen / pergola / paver patio / fire pit / pavilion]
+City: [Jenks / Sapulpa / Catoosa / Coweta / Sand Springs / Glenpool]
+
+Requirements:
+- 1,400+ words (minimum to pass SEO gates)
+- H1: "[Service] in [City], OK | VistaScapes & Design"
+- 2 neighborhood/subdivision references specific to that city
+- Oklahoma climate callouts (freeze-thaw, red clay, wind)
+- 5–6 FAQ block with FAQPage JSON-LD schema
+- LocalBusiness + Service schema
+- Internal links to: service page, 2 other city pages, 1 blog post
+- CTA with phone number
+- After writing: deploy via WP REST API, submit to IndexNow, purge Rocket.net CDN</div>
+          <div class="code-actions">
+            <button class="code-btn" onclick="toggleExpand('vs-city-prompt',this)">Expand</button>
+            <button class="code-btn primary" onclick="copyCode('vs-city-prompt',this)">Copy prompt</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1480,142 +1930,321 @@
     <div id="panel-vd-geo" class="panel">
       <div class="section-header">
         <h2>🤖 GEO + SEO Pipeline — VistaDigital AI</h2>
-        <p>Brand new site · 2/10 GEO · All AI crawlers currently blocked</p>
+        <p>Brand new site · 2/10 GEO · 5/10 SEO · 60-day target: 7/10 both</p>
       </div>
 
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="card-label">GEO Score</div>
-          <div class="card-value" style="color:var(--accent-red)">2/10</div>
-          <div class="card-sub">AI crawlers blocked</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">SEO Score</div>
-          <div class="card-value" style="color:var(--accent-orange)">5/10</div>
-          <div class="card-sub">Foundation exists</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">60-Day Target</div>
-          <div class="card-value" style="color:var(--accent-blue)">7/10</div>
-          <div class="card-sub">Both GEO + SEO</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">llms.txt</div>
-          <div class="card-value" style="color:var(--accent-red)">Missing</div>
-          <div class="card-sub">File ready to upload</div>
-        </div>
+      <div class="panel-tabs">
+        <button class="panel-tab active" onclick="switchTab('panel-vd-geo','vd-geo-tab-tasks',this)">Tasks</button>
+        <button class="panel-tab" onclick="switchTab('panel-vd-geo','vd-geo-tab-llms',this)">llms.txt</button>
+        <button class="panel-tab" onclick="switchTab('panel-vd-geo','vd-geo-tab-schema1',this)">Homepage Schema</button>
+        <button class="panel-tab" onclick="switchTab('panel-vd-geo','vd-geo-tab-schema2',this)">Services Schema</button>
       </div>
 
-      <div class="task-group">
-        <div class="task-group-header">
-          <h3>🚨 Do This First — Unlocks All AI Systems</h3>
-          <span class="tag tag-red">This Week · 30 min</span>
+      <!-- Tab 1: Tasks -->
+      <div id="vd-geo-tab-tasks" class="tab-content active">
+        <div class="info-grid">
+          <div class="info-card"><div class="card-label">GEO Score</div><div class="card-value" style="color:var(--accent-red)">2/10</div><div class="card-sub">AI crawlers blocked</div></div>
+          <div class="info-card"><div class="card-label">SEO Score</div><div class="card-value" style="color:var(--accent-orange)">5/10</div><div class="card-sub">Foundation exists</div></div>
+          <div class="info-card"><div class="card-label">60-Day Target</div><div class="card-value" style="color:var(--accent-blue)">7/10</div><div class="card-sub">Both GEO + SEO</div></div>
+          <div class="info-card"><div class="card-label">llms.txt</div><div class="card-value" style="color:var(--accent-red)">Missing</div><div class="card-sub">See tab above</div></div>
         </div>
 
-        <div class="task-item" id="vd-g1" onclick="toggle('vd-g1','vd')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Turn off Cloudflare AI crawler block</div>
-            <div class="task-meta">dash.cloudflare.com → Security → Bots → OFF "Block AI Scrapers and Crawlers" · Currently blocking ChatGPT, Claude, Gemini, Meta AI, Google AI Overviews — all of them</div>
+        <div class="task-group">
+          <div class="task-group-header"><h3>🚨 This Week — Unlocks All AI (30 min)</h3><span class="tag tag-red">Highest impact</span></div>
+
+          <div class="task-item" id="vd-g1" onclick="toggle('vd-g1','vd')">
+            <div class="checkbox"><span class="checkbox-check">✓</span></div>
+            <div class="task-content">
+              <div class="task-title">Turn off Cloudflare AI crawler block</div>
+              <div class="task-meta">dash.cloudflare.com → Security → Bots → OFF "Block AI Scrapers" · Currently blocking ChatGPT, Claude, Gemini, Meta AI, Google AI Overviews — all of them</div>
+            </div>
+            <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
           </div>
-          <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
-        </div>
 
-        <div class="task-item" id="vd-g2" onclick="toggle('vd-g2','vd')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Upload /llms.txt to vistadigitalai.com root</div>
-            <div class="task-meta">File ready at /Users/javi/VistaDigital/llms.txt · Upload to vistadigitalai.com/llms.txt · Tells AI what your business does + cites pricing</div>
+          <div class="task-item" id="vd-g2" onclick="toggle('vd-g2','vd')">
+            <div class="checkbox"><span class="checkbox-check">✓</span></div>
+            <div class="task-content">
+              <div class="task-title">Upload llms.txt to vistadigitalai.com/llms.txt</div>
+              <div class="task-meta">Full content is in the "llms.txt" tab above · Copy → upload to site root</div>
+            </div>
+            <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
           </div>
-          <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
-        </div>
 
-        <div class="task-item" id="vd-g3" onclick="toggle('vd-g3','vd')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Replace homepage schema with LocalBusiness JSON-LD</div>
-            <div class="task-meta">File at /Users/javi/VistaDigital/schema-homepage.json · Replaces wrong ProfessionalService type · Adds GeoCoordinates, OpeningHours, sameAs, pricing</div>
+          <div class="task-item" id="vd-g3" onclick="toggle('vd-g3','vd')">
+            <div class="checkbox"><span class="checkbox-check">✓</span></div>
+            <div class="task-content">
+              <div class="task-title">Replace homepage &lt;script type="application/ld+json"&gt; with LocalBusiness schema</div>
+              <div class="task-meta">Full JSON is in "Homepage Schema" tab · Fixes wrong type, adds GeoCoordinates, pricing, Person schema for Javi</div>
+            </div>
+            <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
           </div>
-          <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
-        </div>
 
-        <div class="task-item" id="vd-g4" onclick="toggle('vd-g4','vd')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Add FAQ + Service schema to /services.html</div>
-            <div class="task-meta">File at /Users/javi/VistaDigital/schema-services-faq.json · 7 FAQs + pricing structure · Makes your pricing citable by AI for "how much does SEO cost" queries</div>
+          <div class="task-item" id="vd-g4" onclick="toggle('vd-g4','vd')">
+            <div class="checkbox"><span class="checkbox-check">✓</span></div>
+            <div class="task-content">
+              <div class="task-title">Add Services Schema to /services.html as second &lt;script ld+json&gt; block</div>
+              <div class="task-meta">Full JSON is in "Services Schema" tab · 7 FAQs + pricing structure · Makes your pricing directly citable</div>
+            </div>
+            <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
           </div>
-          <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
-        </div>
-      </div>
-
-      <div class="task-group">
-        <div class="task-group-header">
-          <h3>Week 2 — E-E-A-T + Authority</h3>
-          <span class="tag tag-orange">Claude writes · Javi uploads</span>
         </div>
 
-        <div class="task-item" id="vd-g5" onclick="toggle('vd-g5','vd')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Create GBP for VistaDigital AI + add URL to schema sameAs</div>
-            <div class="task-meta">See GBP Guide tab · Once verified, share the GBP URL → Claude updates the schema</div>
+        <div class="task-group">
+          <div class="task-group-header"><h3>Week 2 — E-E-A-T + Authority Signals</h3><span class="tag tag-orange">Claude writes · Javi uploads</span></div>
+
+          <div class="task-item" id="vd-g5" onclick="toggle('vd-g5','vd')">
+            <div class="checkbox"><span class="checkbox-check">✓</span></div>
+            <div class="task-content">
+              <div class="task-title">Create GBP for VistaDigital AI (see GBP Guide tab)</div>
+              <div class="task-meta">Once verified, share the GBP URL → Claude updates sameAs in the schema</div>
+            </div>
+            <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
           </div>
-          <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
-        </div>
 
-        <div class="task-item" id="vd-g6" onclick="toggle('vd-g6','vd')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Expand About page to 600+ words (Claude writes)</div>
-            <div class="task-meta">Current: ~300 words · No founder story, no credentials · Ask Claude: "Write the VistaDigital About page" and it'll build it</div>
+          <div class="task-item" id="vd-g6" onclick="toggle('vd-g6','vd')">
+            <div class="checkbox"><span class="checkbox-check">✓</span></div>
+            <div class="task-content">
+              <div class="task-title">Expand About page to 600+ words</div>
+              <div class="task-meta">Current: ~300 words · Copy the prompt below and paste into Claude</div>
+              <div class="copy-block" style="margin-top:8px">
+                <button class="copy-btn" onclick="copyText(this);event.stopPropagation()">Copy</button>
+                Write an expanded About page for vistadigitalai.com. 600+ words. Include: founder story (Javi Uriostegui, Broken Arrow OK, also runs VistaScapes & Design which is how he learned what actually works for local businesses), why he started the agency (needed these tools for his own business, built them, decided to offer them to others), what makes VD different (owner-operator who's run the same systems on his own business), who the ideal client is (home service contractors, local businesses), founding date (November 2025), mission. Tone: confident, personal, direct — not corporate. Add a Person JSON-LD schema block for Javi at the end.
+              </div>
+            </div>
+            <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
-        </div>
 
-        <div class="task-item" id="vd-g7" onclick="toggle('vd-g7','vd')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Create Clutch.co profile for VistaDigital AI</div>
-            <div class="task-meta">clutch.co/agencies · #1 directory AI systems cite for agency recommendations · Add VistaScapes as a case study</div>
+          <div class="task-item" id="vd-g7" onclick="toggle('vd-g7','vd')">
+            <div class="checkbox"><span class="checkbox-check">✓</span></div>
+            <div class="task-content">
+              <div class="task-title">Create Clutch.co profile (clutch.co/agencies)</div>
+              <div class="task-meta">#1 directory AI systems cite for agency recommendations · Add VistaScapes as first case study</div>
+            </div>
+            <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
           </div>
-          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
-        </div>
 
-        <div class="task-item" id="vd-g8" onclick="toggle('vd-g8','vd')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Ask Claude to build 3 city service pages (Tulsa + Broken Arrow + Bixby)</div>
-            <div class="task-meta">Say: "Build the Tulsa SEO agency landing page for vistadigitalai.com" · Each page = 1,000+ words + schema + local proof</div>
+          <div class="task-item" id="vd-g8" onclick="toggle('vd-g8','vd')">
+            <div class="checkbox"><span class="checkbox-check">✓</span></div>
+            <div class="task-content">
+              <div class="task-title">Ask Claude to build 3 city service pages</div>
+              <div class="task-meta">Copy prompt below → paste into Claude → it builds + deploys</div>
+              <div class="copy-block" style="margin-top:8px">
+                <button class="copy-btn" onclick="copyText(this);event.stopPropagation()">Copy</button>
+                Build and add a local service page to vistadigitalai.com for "SEO Agency in Tulsa, OK". 1,000+ words. H1: "SEO Agency in Tulsa, OK | VistaDigital AI". Include: Tulsa-specific neighborhoods (Midtown, South Tulsa, Brookside), local business stats, what we do for Tulsa businesses, 5-question FAQ with FAQPage schema, LocalBusiness schema with serviceArea: Tulsa. Internal links to homepage and services page. CTA with phone number. Then build the same for Broken Arrow and Bixby.
+              </div>
+            </div>
+            <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
           </div>
-          <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
         </div>
       </div>
 
-      <div class="task-group">
-        <div class="task-group-header"><h3>Claude Handles Automatically</h3><span class="tag tag-green">No action needed</span></div>
-        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
-          <div class="task-content">
-            <div class="task-title">✅ llms.txt — Written and ready to upload</div>
-            <div class="task-meta">/Users/javi/VistaDigital/llms.txt · Includes services, pricing, clients, case study, service area</div>
+      <!-- Tab 2: llms.txt Content -->
+      <div id="vd-geo-tab-llms" class="tab-content">
+        <div class="file-card">
+          <div class="file-card-header"><span class="file-card-title">vistadigitalai.com/llms.txt — Full Content</span></div>
+          <div class="file-card-sub">Copy this entire block → upload as a plain text file to your site root · No HTML, just this text</div>
+          <div class="code-block" id="vd-llms-content"># VistaDigital AI
+
+> VistaDigital AI is a digital marketing agency based in Broken Arrow, Oklahoma, founded in November 2025. We help small businesses — especially home service contractors, local service providers, and professional services — generate more leads online through website design, local SEO, Google Ads, Meta advertising, GoHighLevel CRM setup, and AI marketing automation.
+
+## About
+
+VistaDigital AI was founded by Javi Uriostegui in Broken Arrow, OK. Javi also owns VistaScapes & Design, a premium outdoor living and hardscape company serving the Tulsa metro — giving VistaDigital AI direct, field-tested experience with what actually generates leads for local businesses. We don't sell theory. We've run the same systems on our own business first.
+
+We serve businesses in Tulsa, Broken Arrow, Bixby, Jenks, Owasso, and nationwide for digital services.
+
+Address: 413 N Walnut Ave, Broken Arrow, OK 74012
+Phone: (539) 322-8592
+Email: grow@vistadigitalai.com
+Website: https://vistadigitalai.com
+Founded: November 2025
+
+## Services
+
+- Website Design: Custom websites built for lead generation. $1,500 one-time or $197/mo managed.
+- Local SEO: GBP optimization, citation building, on-page SEO, local landing pages, schema markup. Starter $500/mo · Growth $1,200/mo · Authority $2,500/mo.
+- Google Ads Management: Search and display campaigns for local lead generation.
+- Meta Ads Management: Facebook and Instagram advertising.
+- GoHighLevel CRM Setup: Full GHL setup, pipeline configuration, automation workflows. $997 one-time.
+- AI Marketing Automation: Automated review requests, follow-up sequences, scheduling, reporting.
+
+## Active Clients
+
+- Almazan's Home Improvement — Greenville, NC. Home remodeling contractor. SEO launch across 6 target cities.
+- Red River Media — Tulsa, OK. Video production studio. Website redesign, GHL CRM, recurring content packages.
+
+## Case Studies
+
+- VistaScapes SEO: 90,000+ pages ranked for outdoor living contractor in Tulsa metro.
+
+## Service Area
+
+Primary: Broken Arrow, OK
+Extended: Tulsa, Bixby, Jenks, Owasso, Glenpool (Oklahoma)
+Nationwide: Website design, SEO, and digital marketing available across the US</div>
+          <div class="code-actions">
+            <button class="code-btn" onclick="toggleExpand('vd-llms-content',this)">Expand</button>
+            <button class="code-btn primary" onclick="copyCode('vd-llms-content',this)">Copy full file</button>
           </div>
         </div>
-        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
-          <div class="task-content">
-            <div class="task-title">✅ LocalBusiness schema — Written and ready to paste</div>
-            <div class="task-meta">/Users/javi/VistaDigital/schema-homepage.json · Correct type, GeoCoordinates, pricing catalog, Person schema for Javi</div>
+      </div>
+
+      <!-- Tab 3: Homepage Schema -->
+      <div id="vd-geo-tab-schema1" class="tab-content">
+        <div class="file-card">
+          <div class="file-card-header"><span class="file-card-title">Homepage — LocalBusiness Schema</span></div>
+          <div class="file-card-sub">Replace the existing &lt;script type="application/ld+json"&gt; on index.html with this entire block · Update [GBP_URL] once GBP is created</div>
+          <div class="code-block" id="vd-schema1-content">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://vistadigitalai.com/#business",
+      "name": "VistaDigital AI",
+      "description": "Digital marketing agency in Broken Arrow, OK specializing in local SEO, website design, Google Ads, Meta advertising, GoHighLevel CRM, and AI marketing automation for small businesses and contractors.",
+      "url": "https://vistadigitalai.com",
+      "telephone": "+15393228592",
+      "email": "grow@vistadigitalai.com",
+      "foundingDate": "2025-11",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "413 N Walnut Ave",
+        "addressLocality": "Broken Arrow",
+        "addressRegion": "OK",
+        "postalCode": "74012",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 36.0526,
+        "longitude": -95.7897
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }],
+      "areaServed": [
+        {"@type": "City", "name": "Broken Arrow", "addressRegion": "OK"},
+        {"@type": "City", "name": "Tulsa", "addressRegion": "OK"},
+        {"@type": "City", "name": "Bixby", "addressRegion": "OK"},
+        {"@type": "City", "name": "Jenks", "addressRegion": "OK"},
+        {"@type": "City", "name": "Owasso", "addressRegion": "OK"},
+        {"@type": "AdministrativeArea", "name": "United States"}
+      ],
+      "serviceType": ["Local SEO","Website Design","Google Ads","Meta Ads","GoHighLevel CRM","AI Automation"],
+      "sameAs": [
+        "[GBP_URL]",
+        "https://www.linkedin.com/company/vistadigital-ai",
+        "https://www.facebook.com/vistadigitalai"
+      ],
+      "founder": {
+        "@type": "Person",
+        "@id": "https://vistadigitalai.com/#founder",
+        "name": "Javi Uriostegui",
+        "jobTitle": "Founder"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Digital Marketing Services",
+        "itemListElement": [
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Starter Local SEO"},"price":"500","priceCurrency":"USD"},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Growth Package"},"price":"1200","priceCurrency":"USD"},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Authority Package"},"price":"2500","priceCurrency":"USD"}
+        ]
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://vistadigitalai.com/#founder",
+      "name": "Javi Uriostegui",
+      "jobTitle": "Founder & CEO",
+      "description": "Founder of VistaDigital AI and VistaScapes & Design based in Broken Arrow, Oklahoma.",
+      "worksFor": {"@id": "https://vistadigitalai.com/#business"}
+    }
+  ]
+}
+&lt;/script&gt;</div>
+          <div class="code-actions">
+            <button class="code-btn" onclick="toggleExpand('vd-schema1-content',this)">Expand</button>
+            <button class="code-btn primary" onclick="copyCode('vd-schema1-content',this)">Copy schema</button>
           </div>
         </div>
-        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
-          <div class="task-content">
-            <div class="task-title">✅ FAQPage + Service schema — Written and ready to paste</div>
-            <div class="task-meta">/Users/javi/VistaDigital/schema-services-faq.json · 7 FAQs covering pricing, timelines, GHL, service area</div>
-          </div>
-        </div>
-        <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22">
-          <div class="task-content">
-            <div class="task-title">🔧 Blog post schema fixes — Blog datePublished + author → Person (Claude does on request)</div>
-            <div class="task-meta">Say: "Fix the blog post schema on vistadigitalai.com" and Claude writes the corrected JSON-LD blocks</div>
+      </div>
+
+      <!-- Tab 4: Services Schema -->
+      <div id="vd-geo-tab-schema2" class="tab-content">
+        <div class="file-card">
+          <div class="file-card-header"><span class="file-card-title">Services Page — FAQPage + Service Schema</span></div>
+          <div class="file-card-sub">Add this as a SECOND &lt;script type="application/ld+json"&gt; block on /services.html · Do not remove the existing one</div>
+          <div class="code-block" id="vd-schema2-content">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does local SEO cost?",
+          "acceptedAnswer": {"@type":"Answer","text":"VistaDigital AI offers local SEO starting at $500/month (Starter: GBP + citations + reporting), $1,200/month (Growth: full SEO + website + blog posts), and $2,500/month (Authority: everything plus Google Ads, Meta Ads, CRM, and AI automations)."}
+        },
+        {
+          "@type": "Question",
+          "name": "How long does SEO take to show results?",
+          "acceptedAnswer": {"@type":"Answer","text":"Most clients see Map Pack movement within 60–90 days. Organic ranking improvements for competitive keywords typically take 4–6 months. Speed depends on your baseline, competition level, and content consistency."}
+        },
+        {
+          "@type": "Question",
+          "name": "What is GoHighLevel and why do you use it?",
+          "acceptedAnswer": {"@type":"Answer","text":"GoHighLevel is an all-in-one CRM and marketing automation platform. We use it to centralize lead management, automate follow-up, manage pipelines, send review requests, and track every touchpoint from lead to closed job."}
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a website cost?",
+          "acceptedAnswer": {"@type":"Answer","text":"Custom websites start at $1,500 one-time or $197/month as a managed service including hosting, maintenance, and updates. All websites are mobile-first with local SEO schema built in."}
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work with businesses outside Tulsa and Broken Arrow?",
+          "acceptedAnswer": {"@type":"Answer","text":"Yes. Website design, SEO, Google Ads, Meta Ads, and GHL setup are available to businesses across the United States. We're based in Broken Arrow but work with clients nationwide."}
+        },
+        {
+          "@type": "Question",
+          "name": "What types of businesses do you work with?",
+          "acceptedAnswer": {"@type":"Answer","text":"We specialize in home service contractors (outdoor living, remodeling, landscaping, hardscape), local professional services, and small businesses that rely on local search traffic. We run these same systems for our own home service business — VistaScapes & Design."}
+        },
+        {
+          "@type": "Question",
+          "name": "What is AI marketing automation?",
+          "acceptedAnswer": {"@type":"Answer","text":"Using GoHighLevel plus AI to automate: review request texts, lead follow-up sequences, appointment reminders, missed call text-back, and monthly performance reports. Makes a 2-person business operate like it has a full marketing team."}
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "name": "Local SEO Services",
+      "provider": {"@id": "https://vistadigitalai.com/#business"},
+      "areaServed": {"@type":"AdministrativeArea","name":"United States"},
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "SEO Plans",
+        "itemListElement": [
+          {"@type":"Offer","name":"Starter — $500/mo","price":"500","priceCurrency":"USD"},
+          {"@type":"Offer","name":"Growth — $1,200/mo","price":"1200","priceCurrency":"USD"},
+          {"@type":"Offer","name":"Authority — $2,500/mo","price":"2500","priceCurrency":"USD"}
+        ]
+      }
+    }
+  ]
+}
+&lt;/script&gt;</div>
+          <div class="code-actions">
+            <button class="code-btn" onclick="toggleExpand('vd-schema2-content',this)">Expand</button>
+            <button class="code-btn primary" onclick="copyCode('vd-schema2-content',this)">Copy schema</button>
           </div>
         </div>
       </div>
@@ -1849,6 +2478,45 @@
       btn.textContent = 'Copied!';
       setTimeout(() => btn.textContent = 'Copy', 2000);
     });
+  }
+
+  function copyCode(codeId, btn) {
+    const el = document.getElementById(codeId);
+    const text = el.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copied';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+
+  function toggleExpand(codeId, btn) {
+    const el = document.getElementById(codeId);
+    const expanded = el.classList.toggle('expanded');
+    btn.textContent = expanded ? 'Collapse' : 'Expand';
+  }
+
+  // Copy inline prompt text from a .copy-block (strips button text)
+  function copyText(btn) {
+    const block = btn.closest('.copy-block');
+    const text = Array.from(block.childNodes)
+      .filter(n => n.nodeType === Node.TEXT_NODE)
+      .map(n => n.textContent.trim())
+      .filter(t => t.length > 0)
+      .join(' ');
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copied';
+      setTimeout(() => btn.textContent = orig, 2000);
+    });
+  }
+
+  // ── Panel Tabs ──
+  function switchTab(panelId, tabId, btn) {
+    const panel = document.getElementById(panelId);
+    panel.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    panel.querySelectorAll('.panel-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
   }
 
   // ── Reset current biz ──
