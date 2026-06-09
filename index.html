@@ -36,7 +36,7 @@
 
   /* ── Header ── */
   header {
-    padding: 24px 32px 20px;
+    padding: 20px 32px 16px;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -45,18 +45,17 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(12px);
   }
 
   .header-left h1 {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
     letter-spacing: -0.3px;
     color: #fff;
   }
 
   .header-left span {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--muted);
     display: block;
     margin-top: 2px;
@@ -70,25 +69,28 @@
 
   .date-display strong {
     display: block;
-    font-size: 15px;
+    font-size: 14px;
     color: var(--text);
   }
 
   /* ── Score Bar ── */
   .score-bar {
     display: flex;
-    gap: 12px;
-    padding: 16px 32px;
+    gap: 10px;
+    padding: 12px 32px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     overflow-x: auto;
   }
 
+  .score-chips { display: flex; gap: 10px; }
+  .score-chips.hidden { display: none; }
+
   .score-chip {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 16px;
+    gap: 8px;
+    padding: 8px 14px;
     background: var(--surface2);
     border: 1px solid var(--border-bright);
     border-radius: 999px;
@@ -97,35 +99,63 @@
   }
 
   .score-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     flex-shrink: 0;
   }
 
-  .score-chip .label { color: var(--muted); font-size: 12px; }
+  .score-chip .label { color: var(--muted); font-size: 11px; }
   .score-chip .value { font-weight: 700; font-size: 13px; }
 
   /* ── Layout ── */
   .layout {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 260px 1fr;
     gap: 0;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 108px);
   }
 
   /* ── Sidebar ── */
   .sidebar {
     background: var(--surface);
     border-right: 1px solid var(--border);
-    padding: 20px 0;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
   }
 
-  .nav-section {
-    padding: 0 12px;
-    margin-bottom: 4px;
+  /* ── Business Switcher ── */
+  .biz-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
   }
+
+  .biz-btn {
+    padding: 14px 10px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-bottom: 2px solid transparent;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .biz-btn:hover { color: var(--text); background: var(--surface2); }
+  .biz-btn.active { color: var(--text); border-bottom-color: var(--accent-green); }
+  .biz-btn.active.vd-active { border-bottom-color: var(--accent-blue); }
+
+  /* ── Nav ── */
+  .nav-wrap { padding: 12px 0; flex: 1; }
+  .nav-group { display: none; }
+  .nav-group.active { display: block; }
 
   .nav-section-label {
     font-size: 10px;
@@ -133,14 +163,16 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
-    padding: 8px 12px 6px;
+    padding: 6px 24px 4px;
   }
+
+  .nav-section { padding: 0 10px; margin-bottom: 2px; }
 
   .nav-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 9px 12px;
+    gap: 9px;
+    padding: 8px 14px;
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition: background 0.15s;
@@ -155,8 +187,7 @@
 
   .nav-item:hover { background: var(--surface2); color: var(--text); }
   .nav-item.active { background: var(--surface2); color: var(--text); }
-
-  .nav-item .icon { font-size: 15px; flex-shrink: 0; }
+  .nav-item .icon { font-size: 14px; flex-shrink: 0; }
 
   .nav-badge {
     margin-left: auto;
@@ -172,15 +203,17 @@
 
   .nav-badge.green { background: var(--accent-green); color: #000; }
   .nav-badge.orange { background: var(--accent-orange); color: #000; }
+  .nav-badge.blue { background: var(--accent-blue); color: #000; }
   .nav-badge.muted { background: var(--border-bright); color: var(--muted); }
 
-  /* ── Main Panel ── */
-  .main {
-    overflow-y: auto;
-    padding: 28px 32px;
+  .sidebar-footer {
+    padding: 12px 20px 16px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
   }
 
-  /* ── Tab Panels ── */
+  /* ── Main Panel ── */
+  .main { overflow-y: auto; padding: 24px 28px; }
   .panel { display: none; }
   .panel.active { display: block; }
 
@@ -192,31 +225,21 @@
     margin-bottom: 20px;
   }
 
-  .section-header h2 {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.2px;
-  }
-
-  .section-header p {
-    font-size: 13px;
-    color: var(--muted);
-  }
+  .section-header h2 { font-size: 17px; font-weight: 700; letter-spacing: -0.2px; }
+  .section-header p { font-size: 12px; color: var(--muted); }
 
   /* ── Task Groups ── */
-  .task-group {
-    margin-bottom: 28px;
-  }
+  .task-group { margin-bottom: 24px; }
 
   .task-group-header {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .task-group-header h3 {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -232,41 +255,34 @@
     text-transform: uppercase;
   }
 
-  .tag-red { background: #ff4d6d22; color: var(--accent-red); border: 1px solid #ff4d6d33; }
-  .tag-orange { background: #ff8c4222; color: var(--accent-orange); border: 1px solid #ff8c4233; }
-  .tag-blue { background: #4d9fff22; color: var(--accent-blue); border: 1px solid #4d9fff33; }
-  .tag-green { background: #00d4a022; color: var(--accent-green); border: 1px solid #00d4a033; }
-  .tag-purple { background: #a78bfa22; color: var(--accent-purple); border: 1px solid #a78bfa33; }
-  .tag-yellow { background: #ffd16622; color: var(--accent-yellow); border: 1px solid #ffd16633; }
+  .tag-red    { background: #ff4d6d22; color: var(--accent-red);    border: 1px solid #ff4d6d33; }
+  .tag-orange { background: #ff8c4222; color: var(--accent-orange);  border: 1px solid #ff8c4233; }
+  .tag-blue   { background: #4d9fff22; color: var(--accent-blue);    border: 1px solid #4d9fff33; }
+  .tag-green  { background: #00d4a022; color: var(--accent-green);   border: 1px solid #00d4a033; }
+  .tag-purple { background: #a78bfa22; color: var(--accent-purple);  border: 1px solid #a78bfa33; }
+  .tag-yellow { background: #ffd16622; color: var(--accent-yellow);  border: 1px solid #ffd16633; }
 
   /* ── Task Item ── */
   .task-item {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
+    gap: 11px;
+    padding: 12px 14px;
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     transition: border-color 0.15s, opacity 0.2s;
     cursor: pointer;
   }
 
   .task-item:hover { border-color: var(--border-bright); }
-
-  .task-item.done {
-    opacity: 0.45;
-  }
-
-  .task-item.done .task-title {
-    text-decoration: line-through;
-    color: var(--muted);
-  }
+  .task-item.done { opacity: 0.42; }
+  .task-item.done .task-title { text-decoration: line-through; color: var(--muted); }
 
   .checkbox {
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
     border: 2px solid var(--border-bright);
     border-radius: 5px;
     flex-shrink: 0;
@@ -278,40 +294,18 @@
     background: transparent;
   }
 
-  .task-item.done .checkbox {
-    background: var(--accent-green);
-    border-color: var(--accent-green);
-  }
-
-  .checkbox-check {
-    display: none;
-    color: #000;
-    font-size: 11px;
-    font-weight: 900;
-    line-height: 1;
-  }
-
+  .task-item.done .checkbox { background: var(--accent-green); border-color: var(--accent-green); }
+  .checkbox-check { display: none; color: #000; font-size: 10px; font-weight: 900; line-height: 1; }
   .task-item.done .checkbox-check { display: block; }
 
   .task-content { flex: 1; min-width: 0; }
-
-  .task-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.4;
-  }
-
-  .task-meta {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 3px;
-  }
+  .task-title { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  .task-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
 
   .task-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     flex-shrink: 0;
     margin-top: 1px;
   }
@@ -327,79 +321,46 @@
     white-space: nowrap;
   }
 
-  .priority-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+  .priority-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
   /* ── Progress Bar ── */
   .progress-wrap {
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px 24px;
-    margin-bottom: 24px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
   }
 
-  .progress-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .progress-title { font-weight: 600; font-size: 13px; }
+  .progress-pct { font-size: 22px; font-weight: 800; color: var(--accent-green); }
 
-  .progress-title { font-weight: 600; font-size: 14px; }
-  .progress-pct { font-size: 24px; font-weight: 800; color: var(--accent-green); }
-
-  .progress-track {
-    height: 6px;
-    background: var(--border);
-    border-radius: 999px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
-    border-radius: 999px;
-    transition: width 0.5s ease;
-  }
-
-  .progress-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 8px;
-    font-size: 11px;
-    color: var(--muted);
-  }
+  .progress-track { height: 5px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); border-radius: 999px; transition: width 0.5s ease; }
+  .progress-labels { display: flex; justify-content: space-between; margin-top: 7px; font-size: 11px; color: var(--muted); }
 
   /* ── Info Cards ── */
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
   }
 
   .info-card {
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    padding: 16px;
+    padding: 14px 16px;
   }
 
-  .info-card .card-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
-  .info-card .card-value { font-size: 22px; font-weight: 800; margin-top: 4px; }
+  .info-card .card-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  .info-card .card-value { font-size: 20px; font-weight: 800; margin-top: 4px; }
   .info-card .card-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-  /* ── Daily Panel Specifics ── */
-  .daily-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
+  /* ── Daily Grid ── */
+  .daily-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 
   @media (max-width: 900px) {
     .daily-grid { grid-template-columns: 1fr; }
@@ -407,28 +368,28 @@
     .sidebar { border-right: none; border-bottom: 1px solid var(--border); height: auto; }
   }
 
-  /* ── GBP Panel ── */
+  /* ── Step List ── */
   .step-list { list-style: none; }
 
   .step-item {
     display: flex;
-    gap: 16px;
-    padding: 16px 0;
+    gap: 14px;
+    padding: 14px 0;
     border-bottom: 1px solid var(--border);
   }
 
   .step-item:last-child { border-bottom: none; }
 
   .step-num {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: var(--surface2);
     border: 1px solid var(--border-bright);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--muted);
     flex-shrink: 0;
@@ -457,7 +418,7 @@
     background: #0d0d16;
     border: 1px solid var(--border-bright);
     border-radius: var(--radius-sm);
-    padding: 14px 16px;
+    padding: 12px 14px;
     font-size: 12px;
     color: #b8b8d0;
     line-height: 1.7;
@@ -493,15 +454,20 @@
     border-radius: 999px;
     cursor: pointer;
     transition: all 0.15s;
-    margin-left: auto;
+    width: 100%;
+    text-align: center;
   }
 
   .reset-btn:hover { color: var(--accent-red); border-color: var(--accent-red); }
 
   /* ── Scrollbar ── */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 999px; }
+
+  /* ── Two-col client grid ── */
+  .client-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .client-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -509,7 +475,7 @@
 <header>
   <div class="header-left">
     <h1>⚡ Javi — Command Center</h1>
-    <span>VistaScapes & Design · VistaDigital AI · Daily Operations</span>
+    <span id="header-subtitle">VistaScapes & Design · VistaDigital AI · Daily Operations</span>
   </div>
   <div class="date-display">
     <strong id="date-display"></strong>
@@ -517,35 +483,71 @@
   </div>
 </header>
 
+<!-- SCORE BAR — VistaScapes -->
 <div class="score-bar">
-  <div class="score-chip">
-    <div class="score-dot" style="background:var(--accent-orange)"></div>
-    <span class="label">GEO Score</span>
-    <span class="value" style="color:var(--accent-orange)" id="geo-score">54/100</span>
+  <div class="score-chips" id="chips-vs">
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-orange)"></div>
+      <span class="label">GEO Score</span>
+      <span class="value" style="color:var(--accent-orange)" id="geo-score">54/100</span>
+    </div>
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-blue)"></div>
+      <span class="label">Target (60 days)</span>
+      <span class="value" style="color:var(--accent-blue)">80/100</span>
+    </div>
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-green)"></div>
+      <span class="label">Google Reviews</span>
+      <span class="value" style="color:var(--accent-green)" id="review-count">? reviews</span>
+    </div>
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-yellow)"></div>
+      <span class="label">GBP</span>
+      <span class="value" style="color:var(--accent-green)">Live</span>
+    </div>
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-purple)"></div>
+      <span class="label">Meta Ads</span>
+      <span class="value" style="color:var(--accent-orange)">Paused</span>
+    </div>
+    <div class="score-chip" style="margin-left:auto">
+      <div class="score-dot" style="background:var(--muted)"></div>
+      <span class="label" id="last-updated-vs" style="color:var(--muted)">Updated —</span>
+    </div>
   </div>
-  <div class="score-chip">
-    <div class="score-dot" style="background:var(--accent-blue)"></div>
-    <span class="label">Target (60 days)</span>
-    <span class="value" style="color:var(--accent-blue)" id="geo-target">80/100</span>
-  </div>
-  <div class="score-chip">
-    <div class="score-dot" style="background:var(--accent-green)"></div>
-    <span class="label">Google Reviews</span>
-    <span class="value" style="color:var(--accent-green)" id="review-count">? reviews</span>
-  </div>
-  <div class="score-chip">
-    <div class="score-dot" style="background:var(--accent-purple)"></div>
-    <span class="label">VistaDigital GBP</span>
-    <span class="value" id="vistadigital-gbp-status" style="color:var(--accent-red)">Not Created</span>
-  </div>
-  <div class="score-chip">
-    <div class="score-dot" style="background:var(--accent-yellow)"></div>
-    <span class="label">VistaScapes GBP</span>
-    <span class="value" style="color:var(--accent-green)">Live</span>
-  </div>
-  <div class="score-chip" style="margin-left:auto">
-    <div class="score-dot" style="background:var(--muted)"></div>
-    <span class="label" id="last-updated" style="color:var(--muted)">Updated —</span>
+
+  <!-- SCORE BAR — VistaDigital AI -->
+  <div class="score-chips hidden" id="chips-vd">
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-blue)"></div>
+      <span class="label">Active Clients</span>
+      <span class="value" style="color:var(--accent-blue)">2</span>
+    </div>
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-green)"></div>
+      <span class="label">Website</span>
+      <span class="value" style="color:var(--accent-green)">Live</span>
+    </div>
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-red)"></div>
+      <span class="label">GBP</span>
+      <span class="value" id="vd-gbp-status" style="color:var(--accent-red)">Not Created</span>
+    </div>
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-orange)"></div>
+      <span class="label">Age</span>
+      <span class="value" style="color:var(--accent-orange)">7 months</span>
+    </div>
+    <div class="score-chip">
+      <div class="score-dot" style="background:var(--accent-purple)"></div>
+      <span class="label">Proposals Out</span>
+      <span class="value" style="color:var(--accent-purple)" id="vd-proposals">?</span>
+    </div>
+    <div class="score-chip" style="margin-left:auto">
+      <div class="score-dot" style="background:var(--muted)"></div>
+      <span class="label" style="color:var(--muted)">Updated —</span>
+    </div>
   </div>
 </div>
 
@@ -553,57 +555,89 @@
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="nav-section-label">Dashboards</div>
-    <div class="nav-section">
-      <button class="nav-item active" onclick="showPanel('daily', this)">
-        <span class="icon">☀️</span> Daily Checklist
-        <span class="nav-badge" id="daily-badge">5</span>
-      </button>
-      <button class="nav-item" onclick="showPanel('critical', this)">
-        <span class="icon">🔴</span> Critical One-Time
-        <span class="nav-badge" id="critical-badge">8</span>
-      </button>
-      <button class="nav-item" onclick="showPanel('vistadigital', this)">
-        <span class="icon">🏢</span> VistaDigital Launch
-        <span class="nav-badge orange" id="vd-badge">6</span>
-      </button>
-      <button class="nav-item" onclick="showPanel('geo', this)">
-        <span class="icon">🤖</span> GEO Pipeline
-        <span class="nav-badge muted">AI</span>
-      </button>
-      <button class="nav-item" onclick="showPanel('seo', this)">
-        <span class="icon">📈</span> SEO Content Queue
-        <span class="nav-badge muted">8 posts</span>
-      </button>
-      <button class="nav-item" onclick="showPanel('gbp', this)">
-        <span class="icon">📍</span> Create GBP Guide
-        <span class="nav-badge orange">!</span>
-      </button>
-      <button class="nav-item" onclick="showPanel('javi', this)">
-        <span class="icon">✋</span> Javi Must Do
-        <span class="nav-badge" id="javi-badge">12</span>
-      </button>
+
+    <!-- Business Switcher -->
+    <div class="biz-switch">
+      <button class="biz-btn active" id="btn-vs" onclick="switchBiz('vs')">🌿 VistaScapes</button>
+      <button class="biz-btn" id="btn-vd" onclick="switchBiz('vd')">⚡ VistaDigital</button>
     </div>
 
-    <div class="nav-section-label" style="margin-top:12px">Platforms</div>
-    <div class="nav-section">
-      <button class="nav-item" onclick="showPanel('platforms', this)">
-        <span class="icon">🔗</span> Platform Status
-      </button>
-    </div>
+    <div class="nav-wrap">
 
-    <div style="padding: 20px 24px; margin-top: 12px;">
-      <button class="reset-btn" style="margin:0; width:100%; text-align:center;" onclick="resetAll()">Reset all checkboxes</button>
+      <!-- VistaScapes Nav -->
+      <div class="nav-group active" id="nav-vs">
+        <div class="nav-section-label">VistaScapes & Design</div>
+        <div class="nav-section">
+          <button class="nav-item active" id="navbtn-vs-daily" onclick="showPanel('vs-daily', this)">
+            <span class="icon">☀️</span> Daily Checklist
+            <span class="nav-badge" id="badge-vs-daily">10</span>
+          </button>
+          <button class="nav-item" id="navbtn-vs-critical" onclick="showPanel('vs-critical', this)">
+            <span class="icon">🔴</span> Critical One-Time
+            <span class="nav-badge" id="badge-vs-critical">11</span>
+          </button>
+          <button class="nav-item" id="navbtn-vs-geo" onclick="showPanel('vs-geo', this)">
+            <span class="icon">🤖</span> GEO Pipeline
+            <span class="nav-badge muted">AI</span>
+          </button>
+          <button class="nav-item" id="navbtn-vs-seo" onclick="showPanel('vs-seo', this)">
+            <span class="icon">📈</span> SEO Content Queue
+            <span class="nav-badge muted">8 posts</span>
+          </button>
+          <button class="nav-item" id="navbtn-vs-javi" onclick="showPanel('vs-javi', this)">
+            <span class="icon">✋</span> Javi Must Do
+            <span class="nav-badge" id="badge-vs-javi">12</span>
+          </button>
+          <button class="nav-item" id="navbtn-vs-platforms" onclick="showPanel('vs-platforms', this)">
+            <span class="icon">🔗</span> Platform Status
+          </button>
+        </div>
+      </div>
+
+      <!-- VistaDigital Nav -->
+      <div class="nav-group" id="nav-vd">
+        <div class="nav-section-label">VistaDigital AI</div>
+        <div class="nav-section">
+          <button class="nav-item" id="navbtn-vd-daily" onclick="showPanel('vd-daily', this)">
+            <span class="icon">☀️</span> Daily Checklist
+            <span class="nav-badge blue" id="badge-vd-daily">6</span>
+          </button>
+          <button class="nav-item" id="navbtn-vd-launch" onclick="showPanel('vd-launch', this)">
+            <span class="icon">🚀</span> Agency Launch
+            <span class="nav-badge" id="badge-vd-launch">5</span>
+          </button>
+          <button class="nav-item" id="navbtn-vd-clients" onclick="showPanel('vd-clients', this)">
+            <span class="icon">👥</span> Client Work Queue
+            <span class="nav-badge orange" id="badge-vd-clients">9</span>
+          </button>
+          <button class="nav-item" id="navbtn-vd-gbp" onclick="showPanel('vd-gbp', this)">
+            <span class="icon">📍</span> Create GBP Guide
+            <span class="nav-badge orange">!</span>
+          </button>
+          <button class="nav-item" id="navbtn-vd-platforms" onclick="showPanel('vd-platforms', this)">
+            <span class="icon">🔗</span> Platform Status
+          </button>
+        </div>
+      </div>
+
+    </div><!-- /nav-wrap -->
+
+    <div class="sidebar-footer">
+      <button class="reset-btn" onclick="resetBiz()">Reset checkboxes</button>
     </div>
   </aside>
 
   <!-- MAIN -->
   <main class="main">
 
-    <!-- ══ DAILY CHECKLIST ══ -->
-    <div id="panel-daily" class="panel active">
+    <!-- ══════════════════════════════════════
+         VISTASCAPES PANELS
+    ══════════════════════════════════════ -->
+
+    <!-- VS: Daily Checklist -->
+    <div id="panel-vs-daily" class="panel active">
       <div class="section-header">
-        <h2>☀️ Daily Checklist</h2>
+        <h2>☀️ Daily Checklist — VistaScapes</h2>
         <p>15–20 min/day keeps the pipeline running</p>
       </div>
 
@@ -615,40 +649,31 @@
               <span class="tag tag-red">Do First</span>
             </div>
 
-            <div class="task-item" id="d1" onclick="toggle('d1')">
+            <div class="task-item" id="vs-d1" onclick="toggle('vs-d1','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Check Google reviews — respond to any new ones</div>
                 <div class="task-meta">Reply within 24 hrs · Say city + service in response</div>
               </div>
-              <div class="task-right">
-                <span class="time-badge">5 min</span>
-                <div class="priority-dot" style="background:var(--accent-red)"></div>
-              </div>
+              <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
             </div>
 
-            <div class="task-item" id="d2" onclick="toggle('d2')">
+            <div class="task-item" id="vs-d2" onclick="toggle('vs-d2','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Check GHL — any new leads from forms or calendar?</div>
                 <div class="task-meta">Pipeline auto-runs every 15 min · Verify routing worked</div>
               </div>
-              <div class="task-right">
-                <span class="time-badge">3 min</span>
-                <div class="priority-dot" style="background:var(--accent-red)"></div>
-              </div>
+              <div class="task-right"><span class="time-badge">3 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
             </div>
 
-            <div class="task-item" id="d3" onclick="toggle('d3')">
+            <div class="task-item" id="vs-d3" onclick="toggle('vs-d3','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Check Houzz & Yelp for new reviews or messages</div>
                 <div class="task-meta">Once live — respond same day</div>
               </div>
-              <div class="task-right">
-                <span class="time-badge">2 min</span>
-                <div class="priority-dot" style="background:var(--accent-orange)"></div>
-              </div>
+              <div class="task-right"><span class="time-badge">2 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
             </div>
           </div>
 
@@ -658,28 +683,22 @@
               <span class="tag tag-green">Weekly</span>
             </div>
 
-            <div class="task-item" id="d4" onclick="toggle('d4')">
+            <div class="task-item" id="vs-d4" onclick="toggle('vs-d4','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Send review request text to last completed client</div>
                 <div class="task-meta">"Hey [Name], would you take 60 sec to leave a Google review? Mentioning Broken Arrow + the project type helps neighbors find us. [link]"</div>
               </div>
-              <div class="task-right">
-                <span class="time-badge">2 min</span>
-                <div class="priority-dot" style="background:var(--accent-green)"></div>
-              </div>
+              <div class="task-right"><span class="time-badge">2 min</span><div class="priority-dot" style="background:var(--accent-green)"></div></div>
             </div>
 
-            <div class="task-item" id="d5" onclick="toggle('d5')">
+            <div class="task-item" id="vs-d5" onclick="toggle('vs-d5','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Post the GBP update Claude wrote (copy from file)</div>
                 <div class="task-meta">Wednesday Claude generates · Friday you post in GBP app</div>
               </div>
-              <div class="task-right">
-                <span class="time-badge">5 min</span>
-                <div class="priority-dot" style="background:var(--accent-green)"></div>
-              </div>
+              <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-green)"></div></div>
             </div>
           </div>
         </div>
@@ -691,91 +710,79 @@
               <span class="tag tag-blue">Weekly</span>
             </div>
 
-            <div class="task-item" id="d6" onclick="toggle('d6')">
+            <div class="task-item" id="vs-d6" onclick="toggle('vs-d6','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Publish this week's blog post in WordPress</div>
-                <div class="task-meta">Claude generates it · You paste + click Publish · Takes 5 min</div>
+                <div class="task-meta">Claude generates it · You paste + click Publish · 5 min</div>
               </div>
-              <div class="task-right">
-                <span class="time-badge">5 min</span>
-                <div class="priority-dot" style="background:var(--accent-blue)"></div>
-              </div>
+              <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
             </div>
 
-            <div class="task-item" id="d7" onclick="toggle('d7')">
+            <div class="task-item" id="vs-d7" onclick="toggle('vs-d7','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Share the new blog post to Facebook + Instagram</div>
                 <div class="task-meta">Claude writes the caption · You post the photo + link</div>
               </div>
-              <div class="task-right">
-                <span class="time-badge">3 min</span>
-                <div class="priority-dot" style="background:var(--accent-blue)"></div>
-              </div>
+              <div class="task-right"><span class="time-badge">3 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
             </div>
           </div>
 
           <div class="task-group">
             <div class="task-group-header">
               <h3>Info I Still Need From You</h3>
-              <span class="tag tag-red">Blocking</span>
+              <span class="tag tag-red">Blocking Schema</span>
             </div>
 
-            <div class="task-item" id="d8" onclick="toggle('d8')">
+            <div class="task-item" id="vs-d8" onclick="toggle('vs-d8','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Tell Claude: current Google review count + star rating</div>
-                <div class="task-meta">Needed to add AggregateRating schema (shows stars in Google results)</div>
+                <div class="task-meta">Needed for AggregateRating schema — shows stars in Google results</div>
               </div>
-              <div class="task-right">
-                <div class="priority-dot" style="background:var(--accent-red)"></div>
-              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-red)"></div></div>
             </div>
 
-            <div class="task-item" id="d9" onclick="toggle('d9')">
+            <div class="task-item" id="vs-d9" onclick="toggle('vs-d9','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Tell Claude: founding year — 2018 or 2025?</div>
                 <div class="task-meta">Schema has both · Need to fix inconsistency across all pages</div>
               </div>
-              <div class="task-right">
-                <div class="priority-dot" style="background:var(--accent-orange)"></div>
-              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
             </div>
 
-            <div class="task-item" id="d10" onclick="toggle('d10')">
+            <div class="task-item" id="vs-d10" onclick="toggle('vs-d10','vs')">
               <div class="checkbox"><span class="checkbox-check">✓</span></div>
               <div class="task-content">
                 <div class="task-title">Share your GBP direct review link</div>
                 <div class="task-meta">Short link that drops clients straight into the review box</div>
               </div>
-              <div class="task-right">
-                <div class="priority-dot" style="background:var(--accent-orange)"></div>
-              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ══ CRITICAL ONE-TIME ══ -->
-    <div id="panel-critical" class="panel">
+    <!-- VS: Critical One-Time -->
+    <div id="panel-vs-critical" class="panel">
       <div class="section-header">
-        <h2>🔴 Critical One-Time Setup</h2>
+        <h2>🔴 Critical One-Time Setup — VistaScapes</h2>
         <p>Do these once — they unlock AI citations permanently</p>
       </div>
 
       <div class="progress-wrap">
         <div class="progress-header">
           <span class="progress-title">Platform Setup Progress</span>
-          <span class="progress-pct" id="critical-pct">0%</span>
+          <span class="progress-pct" id="vs-critical-pct">0%</span>
         </div>
         <div class="progress-track">
-          <div class="progress-fill" id="critical-fill" style="width:0%"></div>
+          <div class="progress-fill" id="vs-critical-fill" style="width:0%"></div>
         </div>
         <div class="progress-labels">
-          <span>0 of 8 complete</span>
+          <span id="vs-critical-done-label">0 of 8 complete</span>
           <span>Target: all 8 this week</span>
         </div>
       </div>
@@ -786,100 +793,76 @@
           <span class="tag tag-red">This Week</span>
         </div>
 
-        <div class="task-item" id="c1" onclick="toggle('c1')">
+        <div class="task-item" id="vs-c1" onclick="toggle('vs-c1','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
-            <div class="task-title">Houzz — Upload 15+ project photos + write bio + request 3 reviews</div>
-            <div class="task-meta">pro.houzz.com · You have account · Houzz = #1 source AI uses for contractor recs</div>
+            <div class="task-title">Houzz — Upload 15+ project photos + bio + request 3 reviews</div>
+            <div class="task-meta">pro.houzz.com · You have account · #1 source AI uses for contractor recs</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">1 hr</span>
-            <div class="priority-dot" style="background:var(--accent-red)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">1 hr</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
         </div>
 
-        <div class="task-item" id="c2" onclick="toggle('c2')">
+        <div class="task-item" id="vs-c2" onclick="toggle('vs-c2','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Yelp — Add business description + 10 photos + verify listing</div>
             <div class="task-meta">biz.yelp.com · You have account · ChatGPT cross-checks Yelp before citing</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">45 min</span>
-            <div class="priority-dot" style="background:var(--accent-red)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">45 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
         </div>
 
-        <div class="task-item" id="c3" onclick="toggle('c3')">
+        <div class="task-item" id="vs-c3" onclick="toggle('vs-c3','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Bing Places — Claim listing at bingplaces.com</div>
             <div class="task-meta">Free · 30 min · Without this Bing Copilot has zero knowledge you exist</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">30 min</span>
-            <div class="priority-dot" style="background:var(--accent-red)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
         </div>
 
-        <div class="task-item" id="c4" onclick="toggle('c4')">
+        <div class="task-item" id="vs-c4" onclick="toggle('vs-c4','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Wikidata — Complete entity fields (website, location, owner, industry)</div>
             <div class="task-meta">wikidata.org · You have account · Feeds Google Knowledge Graph + Gemini entity recognition</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">20 min</span>
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
 
-        <div class="task-item" id="c5" onclick="toggle('c5')">
+        <div class="task-item" id="vs-c5" onclick="toggle('vs-c5','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">BBB — Apply for Eastern Oklahoma accreditation</div>
             <div class="task-meta">bbb.org/eastern-oklahoma · ~$400/yr · Direct trust signal AI systems check</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">30 min</span>
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
 
-        <div class="task-item" id="c6" onclick="toggle('c6')">
+        <div class="task-item" id="vs-c6" onclick="toggle('vs-c6','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">LinkedIn — Create VistaScapes company page + your founder profile</div>
             <div class="task-meta">linkedin.com · Free · 45 min · Gemini + ChatGPT index LinkedIn for entity verification</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">45 min</span>
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">45 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
 
-        <div class="task-item" id="c7" onclick="toggle('c7')">
+        <div class="task-item" id="vs-c7" onclick="toggle('vs-c7','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Nextdoor — Create Business page + ask 3 clients to recommend</div>
             <div class="task-meta">nextdoor.com/business · Residential contractor word-of-mouth platform</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">20 min</span>
-            <div class="priority-dot" style="background:var(--accent-blue)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
         </div>
 
-        <div class="task-item" id="c8" onclick="toggle('c8')">
+        <div class="task-item" id="vs-c8" onclick="toggle('vs-c8','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Press outreach — email Tulsa World Home & Garden editor</div>
             <div class="task-meta">news@tulsaworld.com · One press mention = more GEO impact than 50 blog posts</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">30 min</span>
-            <div class="priority-dot" style="background:var(--accent-purple)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-purple)"></div></div>
         </div>
       </div>
 
@@ -889,184 +872,39 @@
           <span class="tag tag-orange">Blocking Claude</span>
         </div>
 
-        <div class="task-item" id="c9" onclick="toggle('c9')">
+        <div class="task-item" id="vs-c9" onclick="toggle('vs-c9','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Your VistaScapes founding year (2018 or 2025?)</div>
-            <div class="task-meta">Schema conflict across all pages — needs to be one consistent answer</div>
+            <div class="task-meta">Schema conflict across all pages — needs one consistent answer</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
 
-        <div class="task-item" id="c10" onclick="toggle('c10')">
+        <div class="task-item" id="vs-c10" onclick="toggle('vs-c10','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Current Google review count + star average</div>
-            <div class="task-meta">Needed to add AggregateRating schema — unlocks star ratings in search results</div>
+            <div class="task-meta">Unlocks AggregateRating schema — star ratings in search results</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
 
-        <div class="task-item" id="c11" onclick="toggle('c11')">
+        <div class="task-item" id="vs-c11" onclick="toggle('vs-c11','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">3 recent project details (neighborhood + service + cost + materials)</div>
             <div class="task-meta">Claude turns these into case study blog posts + portfolio content</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-blue)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
         </div>
       </div>
     </div>
 
-    <!-- ══ VISTADIGITAL LAUNCH ══ -->
-    <div id="panel-vistadigital" class="panel">
+    <!-- VS: GEO Pipeline -->
+    <div id="panel-vs-geo" class="panel">
       <div class="section-header">
-        <h2>🏢 VistaDigital AI — Launch Tasks</h2>
-        <p>Started Nov 2025 · Website just went live · Needs GBP + citations built from scratch</p>
-      </div>
-
-      <div class="info-grid">
-        <div class="info-card">
-          <div class="card-label">Agency Age</div>
-          <div class="card-value" style="color:var(--accent-orange)">7 mo</div>
-          <div class="card-sub">Started Nov 2025</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">GBP Status</div>
-          <div class="card-value" style="color:var(--accent-red)">None</div>
-          <div class="card-sub">Needs to be created</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">Website</div>
-          <div class="card-value" style="color:var(--accent-green)">Live</div>
-          <div class="card-sub">vistadigitalai.com</div>
-        </div>
-        <div class="info-card">
-          <div class="card-label">Clients</div>
-          <div class="card-value" style="color:var(--accent-blue)">2+</div>
-          <div class="card-sub">Almazan, Red River Media</div>
-        </div>
-      </div>
-
-      <div class="task-group">
-        <div class="task-group-header">
-          <h3>GBP Creation — Do This First</h3>
-          <span class="tag tag-red">Priority 1</span>
-        </div>
-
-        <div class="task-item" id="vd1" onclick="toggle('vd1')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Go to business.google.com and create VistaDigital AI GBP</div>
-            <div class="task-meta">Category: "Marketing Agency" or "Website Designer" or "Advertising Agency" — pick the one that matches your primary service</div>
-          </div>
-          <div class="task-right">
-            <span class="time-badge">Step 1</span>
-            <div class="priority-dot" style="background:var(--accent-red)"></div>
-          </div>
-        </div>
-
-        <div class="task-item" id="vd2" onclick="toggle('vd2')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Set service area — Tulsa metro (NOT a physical storefront)</div>
-            <div class="task-meta">Choose "Service area business" since you go to clients · List: Tulsa, Broken Arrow, Bixby, Jenks, Owasso + nationwide for digital services</div>
-          </div>
-          <div class="task-right">
-            <span class="time-badge">Step 2</span>
-            <div class="priority-dot" style="background:var(--accent-red)"></div>
-          </div>
-        </div>
-
-        <div class="task-item" id="vd3" onclick="toggle('vd3')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Verify via postcard or phone (Google will prompt you)</div>
-            <div class="task-meta">Phone verification is fastest (instant) if your number is tied to the business</div>
-          </div>
-          <div class="task-right">
-            <span class="time-badge">Step 3</span>
-            <div class="priority-dot" style="background:var(--accent-red)"></div>
-          </div>
-        </div>
-
-        <div class="task-item" id="vd4" onclick="toggle('vd4')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Complete the GBP profile fully after verification</div>
-            <div class="task-meta">Services: Website Design, SEO, Google Ads, Meta Ads, CRM Setup, AI Automation · Add logo, cover photo, business hours</div>
-          </div>
-          <div class="task-right">
-            <span class="time-badge">Step 4</span>
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="task-group">
-        <div class="task-group-header">
-          <h3>VistaDigital Citations — Build Authority Fast</h3>
-          <span class="tag tag-orange">Week 1–2</span>
-        </div>
-
-        <div class="task-item" id="vd5" onclick="toggle('vd5')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Claim Bing Places for VistaDigital AI</div>
-            <div class="task-meta">bingplaces.com · Same process as VistaScapes · Different listing for this business</div>
-          </div>
-          <div class="task-right">
-            <span class="time-badge">30 min</span>
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
-        </div>
-
-        <div class="task-item" id="vd6" onclick="toggle('vd6')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Create LinkedIn Company Page for VistaDigital AI</div>
-            <div class="task-meta">Industry: Marketing & Advertising · Location: Tulsa, OK · Link to vistadigitalai.com · Add your role as Founder</div>
-          </div>
-          <div class="task-right">
-            <span class="time-badge">30 min</span>
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
-        </div>
-
-        <div class="task-item" id="vd7" onclick="toggle('vd7')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content">
-            <div class="task-title">Get 2 client testimonials from Almazan + Red River Media</div>
-            <div class="task-meta">Use for website + Google reviews · Text them personally · Short reviews are fine</div>
-          </div>
-          <div class="task-right">
-            <span class="time-badge">Ongoing</span>
-            <div class="priority-dot" style="background:var(--accent-blue)"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="task-group">
-        <div class="task-group-header">
-          <h3>VistaDigital GBP Description — Ready to Paste</h3>
-        </div>
-        <div class="copy-block">
-          <button class="copy-btn" onclick="copyText(this)">Copy</button>
-          VistaDigital AI is a Tulsa-based digital marketing agency specializing in website design, local SEO, Google Ads, Meta advertising, CRM setup (GoHighLevel), and AI automation for small businesses. Founded in 2025, we help home service companies, contractors, and local businesses generate more leads and grow their online presence. We build custom websites, manage Google Business Profiles, run paid ad campaigns, and automate follow-up systems. Serving Tulsa, Broken Arrow, Bixby, Jenks, Owasso, and businesses nationwide for digital services.
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ GEO PIPELINE ══ -->
-    <div id="panel-geo" class="panel">
-      <div class="section-header">
-        <h2>🤖 GEO Pipeline</h2>
+        <h2>🤖 GEO Pipeline — VistaScapes</h2>
         <p>What makes AI systems cite vistascapesdesign.com</p>
       </div>
 
@@ -1079,7 +917,7 @@
         <div class="info-card">
           <div class="card-label">AI Citability</div>
           <div class="card-value" style="color:var(--accent-blue)">68</div>
-          <div class="card-sub">Cost pages are strong</div>
+          <div class="card-sub">Cost pages strong</div>
         </div>
         <div class="info-card">
           <div class="card-label">Brand Authority</div>
@@ -1094,190 +932,548 @@
       </div>
 
       <div class="task-group">
-        <div class="task-group-header">
-          <h3>Claude Handles These Automatically</h3>
-          <span class="tag tag-green">Automated</span>
-        </div>
+        <div class="task-group-header"><h3>Claude Handles Automatically</h3><span class="tag tag-green">Automated</span></div>
 
         <div class="task-item" style="cursor:default">
           <div class="task-content">
-            <div class="task-title">✅ robots.txt — All AI crawlers explicitly whitelisted</div>
-            <div class="task-meta">GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Bytespider, ChatGPT-User, Amazonbot — all allowed</div>
+            <div class="task-title">✅ robots.txt — All AI crawlers whitelisted</div>
+            <div class="task-meta">GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Bytespider, ChatGPT-User, Amazonbot</div>
           </div>
         </div>
-
         <div class="task-item" style="cursor:default">
           <div class="task-content">
-            <div class="task-title">✅ llms.txt + llms-full.txt — Both live on site</div>
-            <div class="task-meta">Machine-readable business description for AI systems — rare advantage over local competitors</div>
+            <div class="task-title">✅ llms.txt + llms-full.txt — Both live</div>
+            <div class="task-meta">Machine-readable business description for AI — rare advantage over local competitors</div>
           </div>
         </div>
-
         <div class="task-item" style="cursor:default">
           <div class="task-content">
-            <div class="task-title">🔧 Schema deduplication — Pending (waiting for your founding year)</div>
-            <div class="task-meta">Duplicate FAQPage on homepage + pergola page · Paver patio has zero schema · Fix ready to push</div>
+            <div class="task-title">🔧 Schema deduplication — Pending (waiting for founding year)</div>
+            <div class="task-meta">Duplicate FAQPage on homepage + pergola · Paver patio has zero schema · Fix ready to push</div>
           </div>
         </div>
-
         <div class="task-item" style="cursor:default">
           <div class="task-content">
-            <div class="task-title">🔧 Author bylines — Pending (Claude will add to all 4 service pages)</div>
-            <div class="task-meta">Javi Uriostegui named on only 1 of 5 pages today · Needs to be on all</div>
-          </div>
-        </div>
-
-        <div class="task-item" style="cursor:default">
-          <div class="task-content">
-            <div class="task-title">🔧 First-300-word rewrites — Pending (data-first for AI extraction)</div>
-            <div class="task-meta">Gemini pulls 44% of citations from first 30% of content · Current pages open with brand copy</div>
+            <div class="task-title">🔧 Author bylines on all 4 service pages — Pending</div>
+            <div class="task-meta">Javi Uriostegui named on only 1 of 5 pages today</div>
           </div>
         </div>
       </div>
 
       <div class="task-group">
-        <div class="task-group-header">
-          <h3>GEO Score Projection</h3>
-        </div>
-        <div class="task-item" style="cursor:default; background: #00d4a008; border-color: #00d4a022;">
+        <div class="task-group-header"><h3>GEO Score Projection</h3></div>
+        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
           <div class="task-content">
-            <div class="task-title" style="color:var(--text)">After platform claims + schema fixes → 64/100 (Week 2)</div>
+            <div class="task-title">After platform claims + schema fixes → 64/100 (Week 2)</div>
             <div class="task-meta">Houzz + Yelp + Bing Places + schema fixed = +10 points</div>
           </div>
         </div>
-        <div class="task-item" style="cursor:default; background: #4d9fff08; border-color: #4d9fff22;">
+        <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22">
           <div class="task-content">
-            <div class="task-title" style="color:var(--text)">After 25+ reviews + weekly content → 72/100 (Month 2)</div>
+            <div class="task-title">After 25+ reviews + weekly content → 72/100 (Month 2)</div>
             <div class="task-meta">Review volume + fresh content = +8 points</div>
           </div>
         </div>
-        <div class="task-item" style="cursor:default; background: #a78bfa08; border-color: #a78bfa22;">
+        <div class="task-item" style="cursor:default; background:#a78bfa08; border-color:#a78bfa22">
           <div class="task-content">
-            <div class="task-title" style="color:var(--text)">After 1 press mention + case studies → 80/100 (Month 3)</div>
+            <div class="task-title">After 1 press mention + case studies → 80/100 (Month 3)</div>
             <div class="task-meta">Earned media = biggest single GEO jump possible</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ══ SEO CONTENT QUEUE ══ -->
-    <div id="panel-seo" class="panel">
+    <!-- VS: SEO Content Queue -->
+    <div id="panel-vs-seo" class="panel">
       <div class="section-header">
-        <h2>📈 SEO Content Queue</h2>
+        <h2>📈 SEO Content Queue — VistaScapes</h2>
         <p>8-week blog post schedule — Claude writes, you publish Monday</p>
       </div>
 
       <div class="task-group">
-        <div class="task-group-header">
-          <h3>Blog Posts — In Order of Priority</h3>
-          <span class="tag tag-blue">Claude generates · You publish</span>
-        </div>
+        <div class="task-group-header"><h3>Blog Posts — In Order of Priority</h3><span class="tag tag-blue">Claude generates · You publish</span></div>
 
-        <div class="task-item" id="s1" onclick="toggle('s1')">
+        <div class="task-item" id="vs-s1" onclick="toggle('vs-s1','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 1 — "Paver Patio Cost in Tulsa 2026 (Complete Guide)"</div>
-            <div class="task-meta">Targets keyword Arrow Outdoor Living doesn't own · 2,000+ words · Per-sq-ft pricing by material</div>
+            <div class="task-meta">Targets keyword Arrow Outdoor Living doesn't own · 2,000+ words</div>
           </div>
-          <div class="task-right">
-            <span class="time-badge">High impact</span>
-            <div class="priority-dot" style="background:var(--accent-red)"></div>
-          </div>
+          <div class="task-right"><span class="time-badge">High impact</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
         </div>
-
-        <div class="task-item" id="s2" onclick="toggle('s2')">
+        <div class="task-item" id="vs-s2" onclick="toggle('vs-s2','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 2 — "Outdoor Kitchen vs. Covered Patio: Which Adds More Value in Tulsa?"</div>
-            <div class="task-meta">Comparison content · High AI citability · Captures both-intent traffic</div>
+            <div class="task-meta">Comparison content · High AI citability</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-red)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-red)"></div></div>
         </div>
-
-        <div class="task-item" id="s3" onclick="toggle('s3')">
+        <div class="task-item" id="vs-s3" onclick="toggle('vs-s3','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
-            <div class="task-title">Week 3 — "Best Pergola Materials for Oklahoma Weather (Cedar vs Aluminum vs Vinyl)"</div>
-            <div class="task-meta">Comparison post · ASCE wind load data · Oklahoma freeze-thaw specifics</div>
+            <div class="task-title">Week 3 — "Best Pergola Materials for Oklahoma Weather"</div>
+            <div class="task-meta">Cedar vs Aluminum vs Vinyl · ASCE wind load data</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
-
-        <div class="task-item" id="s4" onclick="toggle('s4')">
+        <div class="task-item" id="vs-s4" onclick="toggle('vs-s4','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 4 — "How Long Does It Take to Build an Outdoor Kitchen in Broken Arrow?"</div>
-            <div class="task-meta">FAQ-style · Answers intent query directly · High Perplexity citation probability</div>
+            <div class="task-meta">FAQ-style · High Perplexity citation probability</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-orange)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
-
-        <div class="task-item" id="s5" onclick="toggle('s5')">
+        <div class="task-item" id="vs-s5" onclick="toggle('vs-s5','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 5 — "Retaining Wall vs French Drain: Which Does Your Tulsa Yard Need?"</div>
-            <div class="task-meta">Decision guide · Targets red clay soil Oklahoma searches</div>
+            <div class="task-meta">Decision guide · Red clay soil Oklahoma searches</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-blue)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
         </div>
-
-        <div class="task-item" id="s6" onclick="toggle('s6')">
+        <div class="task-item" id="vs-s6" onclick="toggle('vs-s6','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 6 — "Outdoor Kitchen Contractors in Tulsa: What to Look for (and Avoid)"</div>
-            <div class="task-meta">Defensive content · Builds authority · Positions VistaScapes as standard-setter</div>
+            <div class="task-meta">Defensive content · Positions VistaScapes as standard-setter</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-blue)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
         </div>
-
-        <div class="task-item" id="s7" onclick="toggle('s7')">
+        <div class="task-item" id="vs-s7" onclick="toggle('vs-s7','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 7 — "Belgard vs Techo-Bloc Pavers: Which Is Better for Oklahoma?"</div>
-            <div class="task-meta">Brand + material comparison · Long-tail buyers · Highly citable specific data</div>
+            <div class="task-meta">Brand comparison · Highly citable specific data</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-purple)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-purple)"></div></div>
         </div>
-
-        <div class="task-item" id="s8" onclick="toggle('s8')">
+        <div class="task-item" id="vs-s8" onclick="toggle('vs-s8','vs')">
           <div class="checkbox"><span class="checkbox-check">✓</span></div>
           <div class="task-content">
             <div class="task-title">Week 8 — "How Much Does a Pavilion Cost in Tulsa? (2026 Pricing Guide)"</div>
-            <div class="task-meta">Cost guide format · Completes the pricing guide suite · Targets pavilion buyers</div>
+            <div class="task-meta">Completes the pricing guide suite</div>
           </div>
-          <div class="task-right">
-            <div class="priority-dot" style="background:var(--accent-purple)"></div>
-          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-purple)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS: Javi Must Do -->
+    <div id="panel-vs-javi" class="panel">
+      <div class="section-header">
+        <h2>✋ Javi Must Do — VistaScapes</h2>
+        <p>Everything that requires your login or personal action</p>
+      </div>
+
+      <div class="task-group">
+        <div class="task-group-header"><h3>This Week — Platform Setup</h3><span class="tag tag-red">3–4 hrs total</span></div>
+
+        <div class="task-item" id="vs-j1" onclick="toggle('vs-j1','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">Houzz — upload 15 photos + bio + request 3 reviews</div><div class="task-meta">pro.houzz.com · 1 hr</div></div>
+          <div class="task-right"><span class="time-badge">1 hr</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+        <div class="task-item" id="vs-j2" onclick="toggle('vs-j2','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">Yelp — add bio + 10 photos + verify listing</div><div class="task-meta">biz.yelp.com · 45 min</div></div>
+          <div class="task-right"><span class="time-badge">45 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+        <div class="task-item" id="vs-j3" onclick="toggle('vs-j3','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">Bing Places — claim VistaScapes listing</div><div class="task-meta">bingplaces.com · 30 min</div></div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+        <div class="task-item" id="vs-j4" onclick="toggle('vs-j4','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">Wikidata — fill in entity fields</div><div class="task-meta">wikidata.org · You have account · 20 min</div></div>
+          <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+        </div>
+        <div class="task-item" id="vs-j5" onclick="toggle('vs-j5','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">LinkedIn — VistaScapes company page + founder profile</div><div class="task-meta">linkedin.com · 45 min</div></div>
+          <div class="task-right"><span class="time-badge">45 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+        </div>
+        <div class="task-item" id="vs-j6" onclick="toggle('vs-j6','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">BBB — apply for Eastern Oklahoma accreditation</div><div class="task-meta">bbb.org/eastern-oklahoma · ~$400–500/yr</div></div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
         </div>
       </div>
 
       <div class="task-group">
-        <div class="task-group-header">
-          <h3>Already Published ✅</h3>
+        <div class="task-group-header"><h3>Tell Claude — Unblocks Technical Work</h3><span class="tag tag-orange">Quick Answers</span></div>
+
+        <div class="task-item" id="vs-j7" onclick="toggle('vs-j7','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">VistaScapes founding year — 2018 or 2025?</div><div class="task-meta">Schema inconsistency blocking fixes</div></div>
         </div>
-        <div class="task-item" style="opacity:0.4; cursor:default">
-          <div class="task-content">
-            <div class="task-title" style="text-decoration:line-through">Outdoor kitchen cost · Pavilion vs pergola · Backyard reno cost · Best pavers for Oklahoma · Outdoor living FAQ</div>
-            <div class="task-meta">All live · All indexed</div>
+        <div class="task-item" id="vs-j8" onclick="toggle('vs-j8','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">Current Google review count + star average</div><div class="task-meta">Needed for star rating in search results</div></div>
+        </div>
+        <div class="task-item" id="vs-j9" onclick="toggle('vs-j9','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">Your GBP direct review link (short URL)</div><div class="task-meta">For client review request texts</div></div>
+        </div>
+        <div class="task-item" id="vs-j10" onclick="toggle('vs-j10','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">3 project details for case studies (neighborhood + service + cost + materials)</div><div class="task-meta">Claude turns these into SEO case study posts</div></div>
+        </div>
+        <div class="task-item" id="vs-j11" onclick="toggle('vs-j11','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">Any trade licenses or certifications? (ICPI, state license #)</div><div class="task-meta">Adds to schema + About page trust signals</div></div>
+        </div>
+        <div class="task-item" id="vs-j12" onclick="toggle('vs-j12','vs')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content"><div class="task-title">Meta Ads — say "approved, launch it" when ready</div><div class="task-meta">4 campaigns built + paused · $50/day budget · ElevenLabs VO still needed</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VS: Platform Status -->
+    <div id="panel-vs-platforms" class="panel">
+      <div class="section-header">
+        <h2>🔗 Platform Status — VistaScapes</h2>
+        <p>Current state of all business profiles</p>
+      </div>
+
+      <div class="task-group">
+        <div class="task-group-header"><h3>VistaScapes & Design</h3></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Google Business Profile</div><div class="task-meta">Broken Arrow, OK · Live but low review count</div></div><div class="task-right"><span class="tag tag-orange">Needs reviews</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Website — vistascapesdesign.com</div><div class="task-meta">Live · 3,914 URLs · llms.txt ✅ · robots.txt ✅</div></div><div class="task-right"><span class="tag tag-green">Live</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Facebook / Instagram</div><div class="task-meta">Active · 4 campaigns built but paused</div></div><div class="task-right"><span class="tag tag-green">Live</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">GHL CRM Pipeline</div><div class="task-meta">Auto-pipeline v5 deployed · Form routing active</div></div><div class="task-right"><span class="tag tag-green">Active</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Houzz</div><div class="task-meta">Account exists · No photos or reviews visible</div></div><div class="task-right"><span class="tag tag-red">Needs population</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Yelp</div><div class="task-meta">Account exists · Needs photos + description</div></div><div class="task-right"><span class="tag tag-red">Needs population</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Bing Places</div><div class="task-meta">Not claimed</div></div><div class="task-right"><span class="tag tag-red">Claim now</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Wikidata</div><div class="task-meta">Account exists · Needs entity fields completed</div></div><div class="task-right"><span class="tag tag-orange">Needs fields</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">LinkedIn</div><div class="task-meta">No company page found</div></div><div class="task-right"><span class="tag tag-red">Create now</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">BBB</div><div class="task-meta">Not accredited</div></div><div class="task-right"><span class="tag tag-orange">Apply</span></div></div>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════
+         VISTADIGITAL AI PANELS
+    ══════════════════════════════════════ -->
+
+    <!-- VD: Daily Checklist -->
+    <div id="panel-vd-daily" class="panel">
+      <div class="section-header">
+        <h2>☀️ Daily Checklist — VistaDigital AI</h2>
+        <p>10–15 min/day · Agency ops + client momentum</p>
+      </div>
+
+      <div class="daily-grid">
+        <div>
+          <div class="task-group">
+            <div class="task-group-header">
+              <h3>Every Morning</h3>
+              <span class="tag tag-blue">Do First</span>
+            </div>
+
+            <div class="task-item" id="vd-d1" onclick="toggle('vd-d1','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Check GHL for new leads + client messages</div>
+                <div class="task-meta">New leads from VistaDigital website · Reply within 2 hrs for agency credibility</div>
+              </div>
+              <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-d2" onclick="toggle('vd-d2','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Check client site health (Almazan + Red River Media)</div>
+                <div class="task-meta">Quick scan: are their sites up? Any new GHL leads for them?</div>
+              </div>
+              <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+            </div>
+          </div>
+
+          <div class="task-group">
+            <div class="task-group-header">
+              <h3>Monday Only</h3>
+              <span class="tag tag-blue">Weekly</span>
+            </div>
+
+            <div class="task-item" id="vd-d3" onclick="toggle('vd-d3','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Send weekly results update to active clients</div>
+                <div class="task-meta">Claude writes the report · You send · Shows value + prevents churn</div>
+              </div>
+              <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-d4" onclick="toggle('vd-d4','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Follow up on any proposals older than 3 days</div>
+                <div class="task-meta">One short "Any questions?" text usually closes or kills it · Don't let leads go cold</div>
+              </div>
+              <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="task-group">
+            <div class="task-group-header">
+              <h3>Friday Only</h3>
+              <span class="tag tag-green">Weekly</span>
+            </div>
+
+            <div class="task-item" id="vd-d5" onclick="toggle('vd-d5','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Request a testimonial from most recent completed client deliverable</div>
+                <div class="task-meta">Text personally · "Could you leave a quick Google review for VistaDigital AI?" + link</div>
+              </div>
+              <div class="task-right"><span class="time-badge">2 min</span><div class="priority-dot" style="background:var(--accent-green)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-d6" onclick="toggle('vd-d6','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Post 1 piece of content on LinkedIn (Claude drafts)</div>
+                <div class="task-meta">Client result, tip, or behind-the-scenes · Builds agency authority</div>
+              </div>
+              <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+            </div>
+          </div>
+
+          <div class="task-group">
+            <div class="task-group-header">
+              <h3>Need From You</h3>
+              <span class="tag tag-orange">Quick</span>
+            </div>
+
+            <div class="task-item" id="vd-d7" onclick="toggle('vd-d7','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">What's your current MRR from VistaDigital clients?</div>
+                <div class="task-meta">Almazan + Red River Media · Need to update revenue tracker in score bar</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ══ GBP GUIDE ══ -->
-    <div id="panel-gbp" class="panel">
+    <!-- VD: Agency Launch -->
+    <div id="panel-vd-launch" class="panel">
+      <div class="section-header">
+        <h2>🚀 Agency Launch — VistaDigital AI</h2>
+        <p>One-time setup to build authority for a 7-month-old agency</p>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-title">Agency Authority Setup</span>
+          <span class="progress-pct" id="vd-launch-pct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="vd-launch-fill" style="width:0%"></div>
+        </div>
+        <div class="progress-labels">
+          <span id="vd-launch-done-label">0 of 5 complete</span>
+          <span>Target: done by end of week</span>
+        </div>
+      </div>
+
+      <div class="task-group">
+        <div class="task-group-header"><h3>Priority 1 — Must Do First</h3><span class="tag tag-red">This Week</span></div>
+
+        <div class="task-item" id="vd-l1" onclick="toggle('vd-l1','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Create Google Business Profile for VistaDigital AI</div>
+            <div class="task-meta">business.google.com · 20 min · See GBP Guide tab for exact steps</div>
+          </div>
+          <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-l2" onclick="toggle('vd-l2','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Claim Bing Places for VistaDigital AI</div>
+            <div class="task-meta">bingplaces.com · Separate from VistaScapes · 30 min · Unlocks Copilot citations</div>
+          </div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-l3" onclick="toggle('vd-l3','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Create LinkedIn Company Page — VistaDigital AI</div>
+            <div class="task-meta">Industry: Marketing & Advertising · Tulsa OK · Link to vistadigitalai.com · Add yourself as Founder</div>
+          </div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-l4" onclick="toggle('vd-l4','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Get testimonials from Almazan + Red River Media</div>
+            <div class="task-meta">Text personally · Any format is fine · Claude will format them for the website + GBP</div>
+          </div>
+          <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-l5" onclick="toggle('vd-l5','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Create Clutch.co profile for VistaDigital AI</div>
+            <div class="task-meta">clutch.co/agencies · The #1 agency review site · AI systems heavily cite Clutch for agency recommendations</div>
+          </div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+        </div>
+      </div>
+
+      <div class="task-group">
+        <div class="task-group-header"><h3>VistaDigital GBP Description — Ready to Paste</h3></div>
+        <div class="copy-block">
+          <button class="copy-btn" onclick="copyText(this)">Copy</button>
+          VistaDigital AI is a Tulsa-based digital marketing agency specializing in website design, local SEO, Google Ads, Meta advertising, CRM setup (GoHighLevel), and AI automation for small businesses. Founded in 2025, we help home service companies, contractors, and local businesses generate more leads and grow their online presence. We build custom websites, manage Google Business Profiles, run paid ad campaigns, and automate follow-up systems. Serving Tulsa, Broken Arrow, Bixby, Jenks, Owasso, and businesses nationwide for digital services.
+        </div>
+      </div>
+    </div>
+
+    <!-- VD: Client Work Queue -->
+    <div id="panel-vd-clients" class="panel">
+      <div class="section-header">
+        <h2>👥 Client Work Queue — VistaDigital AI</h2>
+        <p>Active deliverables across current clients</p>
+      </div>
+
+      <div class="client-grid">
+        <!-- Almazan -->
+        <div>
+          <div class="task-group">
+            <div class="task-group-header">
+              <h3>Almazan's Home Improvement</h3>
+              <span class="tag tag-green">Active</span>
+            </div>
+            <div class="task-meta" style="font-size:11px; color:var(--muted); margin-bottom:10px; padding:0 2px">Greenville NC anchor · 5-city SAB · Greenfield SEO launch</div>
+
+            <div class="task-item" id="vd-a1" onclick="toggle('vd-a1','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Build 6 local landing pages (Greenville, New Bern, Jacksonville, Fayetteville, Rocky Mount, Durham)</div>
+                <div class="task-meta">Claude builds · You approve + publish</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-a2" onclick="toggle('vd-a2','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Deploy schema markup on all Almazan pages</div>
+                <div class="task-meta">LocalBusiness + Service + FAQPage per page</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-a3" onclick="toggle('vd-a3','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Set up GBP posting schedule for Almazan</div>
+                <div class="task-meta">2x/week · Claude generates · Client or you posts</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-a4" onclick="toggle('vd-a4','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Confirm GC license status + bilingual site decision</div>
+                <div class="task-meta">Open question from onboarding · Affects page copy + schema</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red River Media -->
+        <div>
+          <div class="task-group">
+            <div class="task-group-header">
+              <h3>Red River Media</h3>
+              <span class="tag tag-orange">In Progress</span>
+            </div>
+            <div class="task-meta" style="font-size:11px; color:var(--muted); margin-bottom:10px; padding:0 2px">Darryl Turner · Tulsa video production · Reposition: one-off events → recurring packages</div>
+
+            <div class="task-item" id="vd-r1" onclick="toggle('vd-r1','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Website redesign — fix Wix defaults, add H1s, pricing page</div>
+                <div class="task-meta">SEO 48/100 · 5 critical issues identified · Claude has full action plan</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-r2" onclick="toggle('vd-r2','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Create Google Business Profile for Red River Media</div>
+                <div class="task-meta">redrivermedia.studio · Category: Video Production Service · Tulsa OK</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-r3" onclick="toggle('vd-r3','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Set up GoHighLevel CRM for Red River Media</div>
+                <div class="task-meta">Lead capture + follow-up automation · Monthly content package pipeline</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-r4" onclick="toggle('vd-r4','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Build "Recurring Content Package" service page + pricing</div>
+                <div class="task-meta">4hr shoot = 1 month of content · $2,500–$3,000/mo · Claude writes the page</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+            </div>
+
+            <div class="task-item" id="vd-r5" onclick="toggle('vd-r5','vd')">
+              <div class="checkbox"><span class="checkbox-check">✓</span></div>
+              <div class="task-content">
+                <div class="task-title">Present Red River Media with revised positioning + pricing</div>
+                <div class="task-meta">Use the audit report Claude built · reposition pitch ready</div>
+              </div>
+              <div class="task-right"><div class="priority-dot" style="background:var(--accent-purple)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-group" style="margin-top:8px">
+        <div class="task-group-header"><h3>New Business Pipeline</h3><span class="tag tag-purple">Prospect</span></div>
+        <div class="task-item" style="cursor:default; background:#a78bfa08; border-color:#a78bfa22">
+          <div class="task-content">
+            <div class="task-title" style="color:var(--muted)">Care Chiropractic — 14-page pitch + 12-page site built · Awaiting decision</div>
+            <div class="task-meta">$500–$2,997/mo tiers · WCAG AAA · drcraigdc.com recovery mapped</div>
+          </div>
+        </div>
+        <div class="task-item" style="cursor:default; background:#a78bfa08; border-color:#a78bfa22">
+          <div class="task-content">
+            <div class="task-title" style="color:var(--muted)">IANJ Church — Tulsa church site live at vistadigitalai.github.io · Domain pending</div>
+            <div class="task-meta">14 JSON-LD schemas · Bilingual EN/ES · ianjchurch.com domain TBD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VD: GBP Guide -->
+    <div id="panel-vd-gbp" class="panel">
       <div class="section-header">
         <h2>📍 Create VistaDigital AI GBP</h2>
         <p>Step-by-step — takes about 20 minutes</p>
@@ -1288,7 +1484,7 @@
           <div class="step-num">1</div>
           <div class="step-content">
             <div class="step-title">Go to Google Business Profile Manager</div>
-            <div class="step-desc">Open this in your browser while logged into your Google account (the one you want tied to the business).</div>
+            <div class="step-desc">Open while logged into the Google account you want tied to VistaDigital AI.</div>
             <a class="step-link" href="https://business.google.com" target="_blank">→ business.google.com</a>
           </div>
         </li>
@@ -1296,43 +1492,42 @@
           <div class="step-num">2</div>
           <div class="step-content">
             <div class="step-title">Click "Add your business to Google"</div>
-            <div class="step-desc">Type the business name: <strong>VistaDigital AI</strong>. If Google shows a match, it's a different business — create new anyway.</div>
+            <div class="step-desc">Type: <strong>VistaDigital AI</strong>. If Google shows a match, it's a different business — create new anyway.</div>
           </div>
         </li>
         <li class="step-item">
           <div class="step-num">3</div>
           <div class="step-content">
             <div class="step-title">Choose the right category</div>
-            <div class="step-desc">Primary category: <strong>"Marketing Agency"</strong><br>Also add secondary: "Website Designer" and "Advertising Agency"<br>Do NOT pick "Computer Repair" or anything tech-generic.</div>
+            <div class="step-desc">Primary: <strong>Marketing Agency</strong><br>Secondary: Website Designer · Advertising Agency<br>Do NOT pick Computer Repair or anything tech-generic.</div>
           </div>
         </li>
         <li class="step-item">
           <div class="step-num">4</div>
           <div class="step-content">
-            <div class="step-title">Choose "Service area business" (not storefront)</div>
-            <div class="step-desc">You go to clients — do not enter a physical address if you work from home. Enter your service area: Tulsa, Broken Arrow, Bixby, Jenks, Owasso + "United States" for digital services.</div>
+            <div class="step-title">Choose "Service area business" — not a storefront</div>
+            <div class="step-desc">You go to clients. Don't enter a home address. Service area: Tulsa, Broken Arrow, Bixby, Jenks, Owasso + United States for digital.</div>
           </div>
         </li>
         <li class="step-item">
           <div class="step-num">5</div>
           <div class="step-content">
             <div class="step-title">Add contact info</div>
-            <div class="step-desc">Phone: your business number<br>Website: https://vistadigitalai.com<br>Email: grow@vistadigitalai.com</div>
+            <div class="step-desc">Phone: your business number · Website: https://vistadigitalai.com · Email: grow@vistadigitalai.com</div>
           </div>
         </li>
         <li class="step-item">
           <div class="step-num">6</div>
           <div class="step-content">
-            <div class="step-title">Verify the listing</div>
-            <div class="step-desc">Choose phone verification (fastest — instant code). If phone option isn't available, choose video verification (record a 30-sec clip showing you working at your desk with a document showing the business name). Postcard takes 5–14 days — avoid if possible.</div>
+            <div class="step-title">Verify — phone is fastest</div>
+            <div class="step-desc">Phone verification = instant code. If not available: video verification (30-sec clip at your desk showing business name). Postcard = 5–14 days, avoid.</div>
           </div>
         </li>
         <li class="step-item">
           <div class="step-num">7</div>
           <div class="step-content">
-            <div class="step-title">Complete the profile after verification</div>
-            <div class="step-desc">Paste this description:</div>
-            <div class="copy-block" style="margin-top:10px">
+            <div class="step-title">Paste this description after verification</div>
+            <div class="copy-block" style="margin-top:8px">
               <button class="copy-btn" onclick="copyText(this)">Copy</button>
               VistaDigital AI is a Tulsa-based digital marketing agency helping small businesses generate more leads online. We specialize in website design, local SEO, Google Ads, Meta advertising, GoHighLevel CRM setup, and AI marketing automation. Founded in 2025. We serve contractors, home service companies, and local businesses in Tulsa and nationwide for digital services.
             </div>
@@ -1341,160 +1536,37 @@
         <li class="step-item">
           <div class="step-num">8</div>
           <div class="step-content">
-            <div class="step-title">Add services and photos</div>
-            <div class="step-desc">
-              Services to add: Website Design · Local SEO · Google Ads Management · Meta Ads Management · GoHighLevel CRM Setup · AI Automation · Social Media Management<br><br>
-              Photos: your logo, a screenshot of a client result (blurred if needed), your profile photo as founder.
-            </div>
+            <div class="step-title">Add services + photos</div>
+            <div class="step-desc">Services: Website Design · Local SEO · Google Ads · Meta Ads · GoHighLevel CRM · AI Automation · Social Media<br><br>Photos: your logo · screenshot of a client result (blur if needed) · your headshot as founder.</div>
           </div>
         </li>
       </ul>
     </div>
 
-    <!-- ══ JAVI MUST DO ══ -->
-    <div id="panel-javi" class="panel">
+    <!-- VD: Platform Status -->
+    <div id="panel-vd-platforms" class="panel">
       <div class="section-header">
-        <h2>✋ Javi Must Do — Full List</h2>
-        <p>Everything that requires your login or personal action</p>
-      </div>
-
-      <div class="task-group">
-        <div class="task-group-header">
-          <h3>This Week — Platform Setup</h3>
-          <span class="tag tag-red">3–4 hrs total</span>
-        </div>
-        <div class="task-item" id="j1" onclick="toggle('j1')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">Create VistaDigital AI GBP (see GBP Guide tab)</div><div class="task-meta">business.google.com · 20 min</div></div>
-          <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
-        </div>
-        <div class="task-item" id="j2" onclick="toggle('j2')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">Houzz — upload 15 photos + bio + request 3 reviews</div><div class="task-meta">pro.houzz.com · You have account · 1 hr</div></div>
-          <div class="task-right"><span class="time-badge">1 hr</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
-        </div>
-        <div class="task-item" id="j3" onclick="toggle('j3')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">Yelp — add bio + 10 photos + verify listing</div><div class="task-meta">biz.yelp.com · You have account · 45 min</div></div>
-          <div class="task-right"><span class="time-badge">45 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
-        </div>
-        <div class="task-item" id="j4" onclick="toggle('j4')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">Bing Places — claim listing for VistaScapes + VistaDigital</div><div class="task-meta">bingplaces.com · 2 listings · 30 min each</div></div>
-          <div class="task-right"><span class="time-badge">1 hr</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
-        </div>
-        <div class="task-item" id="j5" onclick="toggle('j5')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">Wikidata — fill in entity fields (website, location, owner, founding date)</div><div class="task-meta">wikidata.org · You have account · 20 min</div></div>
-          <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
-        </div>
-        <div class="task-item" id="j6" onclick="toggle('j6')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">LinkedIn — company pages for both businesses + your founder profile</div><div class="task-meta">linkedin.com · 3 items total · 1.5 hrs</div></div>
-          <div class="task-right"><span class="time-badge">1.5 hr</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
-        </div>
-        <div class="task-item" id="j7" onclick="toggle('j7')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">BBB — apply for Eastern Oklahoma accreditation</div><div class="task-meta">bbb.org/eastern-oklahoma · ~$400–500/yr</div></div>
-          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
-        </div>
-      </div>
-
-      <div class="task-group">
-        <div class="task-group-header">
-          <h3>Tell Claude — Unblocks Technical Work</h3>
-          <span class="tag tag-orange">Quick Answers</span>
-        </div>
-        <div class="task-item" id="j8" onclick="toggle('j8')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">VistaScapes founding year — 2018 or 2025?</div><div class="task-meta">Schema inconsistency blocking AggregateRating fix</div></div>
-        </div>
-        <div class="task-item" id="j9" onclick="toggle('j9')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">Current Google review count + star average</div><div class="task-meta">Needed to add star rating schema to search results</div></div>
-        </div>
-        <div class="task-item" id="j10" onclick="toggle('j10')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">Your GBP direct review link (short URL)</div><div class="task-meta">For client review request texts</div></div>
-        </div>
-        <div class="task-item" id="j11" onclick="toggle('j11')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">3 project details for case studies (neighborhood + service + cost + materials)</div><div class="task-meta">Claude turns these into SEO case study posts + portfolio</div></div>
-        </div>
-        <div class="task-item" id="j12" onclick="toggle('j12')">
-          <div class="checkbox"><span class="checkbox-check">✓</span></div>
-          <div class="task-content"><div class="task-title">Any trade licenses or certifications? (ICPI number, state license #)</div><div class="task-meta">Adds to schema + About page trust signals</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ PLATFORM STATUS ══ -->
-    <div id="panel-platforms" class="panel">
-      <div class="section-header">
-        <h2>🔗 Platform Status</h2>
-        <p>Current state of all business profiles</p>
-      </div>
-
-      <div class="task-group">
-        <div class="task-group-header"><h3>VistaScapes & Design</h3></div>
-
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Google Business Profile</div><div class="task-meta">Broken Arrow, OK · Live but low review count</div></div>
-          <div class="task-right"><span class="tag tag-orange">Needs reviews</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Houzz</div><div class="task-meta">Account exists · No photos or reviews visible</div></div>
-          <div class="task-right"><span class="tag tag-red">Needs population</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Yelp</div><div class="task-meta">Account exists · Needs photos + description</div></div>
-          <div class="task-right"><span class="tag tag-red">Needs population</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Bing Places</div><div class="task-meta">Not claimed</div></div>
-          <div class="task-right"><span class="tag tag-red">Claim now</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Wikidata</div><div class="task-meta">Account exists · Needs entity fields completed</div></div>
-          <div class="task-right"><span class="tag tag-orange">Needs fields</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">LinkedIn</div><div class="task-meta">No company page found</div></div>
-          <div class="task-right"><span class="tag tag-red">Create now</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">BBB</div><div class="task-meta">Not accredited</div></div>
-          <div class="task-right"><span class="tag tag-orange">Apply</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Facebook / Instagram</div><div class="task-meta">Active ✅</div></div>
-          <div class="task-right"><span class="tag tag-green">Live</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Website — vistascapesdesign.com</div><div class="task-meta">Live · 3,914 URLs · llms.txt ✅ · robots.txt ✅</div></div>
-          <div class="task-right"><span class="tag tag-green">Live</span></div>
-        </div>
+        <h2>🔗 Platform Status — VistaDigital AI</h2>
+        <p>Current state of all agency profiles</p>
       </div>
 
       <div class="task-group">
         <div class="task-group-header"><h3>VistaDigital AI</h3></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Website — vistadigitalai.com</div><div class="task-meta">Just went live · No SEO audit done yet</div></div><div class="task-right"><span class="tag tag-green">Live</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Google Business Profile</div><div class="task-meta">Not created yet</div></div><div class="task-right"><span class="tag tag-red">Create now</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Bing Places</div><div class="task-meta">Not claimed</div></div><div class="task-right"><span class="tag tag-red">Claim now</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">LinkedIn Company Page</div><div class="task-meta">Not created</div></div><div class="task-right"><span class="tag tag-red">Create now</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Clutch.co</div><div class="task-meta">Not listed — #1 site AI cites for agency recommendations</div></div><div class="task-right"><span class="tag tag-red">Create now</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">GHL CRM (Agency Account)</div><div class="task-meta">Active · Running Almazan + Red River pipelines</div></div><div class="task-right"><span class="tag tag-green">Active</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Command Center Dashboard</div><div class="task-meta">vistadigitalai.github.io/Vistamanage.com/</div></div><div class="task-right"><span class="tag tag-green">Live</span></div></div>
+      </div>
 
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Google Business Profile</div><div class="task-meta">Not created yet</div></div>
-          <div class="task-right"><span class="tag tag-red">Create now</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Website — vistadigitalai.com</div><div class="task-meta">Just went live</div></div>
-          <div class="task-right"><span class="tag tag-green">Live</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">Bing Places</div><div class="task-meta">Not claimed</div></div>
-          <div class="task-right"><span class="tag tag-red">Claim now</span></div>
-        </div>
-        <div class="task-item" style="cursor:default">
-          <div class="task-content"><div class="task-title">LinkedIn Company Page</div><div class="task-meta">Not created</div></div>
-          <div class="task-right"><span class="tag tag-red">Create now</span></div>
-        </div>
+      <div class="task-group">
+        <div class="task-group-header"><h3>Active Clients</h3></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Almazan's Home Improvement</div><div class="task-meta">Greenville NC · Local SEO launch · 6 cities · In progress</div></div><div class="task-right"><span class="tag tag-green">Active</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Red River Media</div><div class="task-meta">Darryl Turner · Tulsa · Website + GHL + reposition · In progress</div></div><div class="task-right"><span class="tag tag-orange">In progress</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Care Chiropractic</div><div class="task-meta">Pitch delivered · Awaiting sign-off</div></div><div class="task-right"><span class="tag tag-orange">Pending</span></div></div>
+        <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">IANJ Church (Tulsa)</div><div class="task-meta">Site live on GitHub Pages · Domain pending</div></div><div class="task-right"><span class="tag tag-blue">Domain pending</span></div></div>
       </div>
     </div>
 
@@ -1516,124 +1588,152 @@
   updateClock();
   setInterval(updateClock, 30000);
 
-  // ── Toggle ──
-  function toggle(id) {
+  // ── Business state ──
+  let activeBiz = localStorage.getItem('activeBiz') || 'vs';
+
+  // ── Switch Business ──
+  function switchBiz(biz) {
+    activeBiz = biz;
+    localStorage.setItem('activeBiz', biz);
+
+    // Switcher buttons
+    document.getElementById('btn-vs').classList.toggle('active', biz === 'vs');
+    document.getElementById('btn-vd').classList.toggle('active', biz === 'vd');
+    document.getElementById('btn-vd').classList.toggle('vd-active', biz === 'vd');
+
+    // Score bar
+    document.getElementById('chips-vs').classList.toggle('hidden', biz !== 'vs');
+    document.getElementById('chips-vd').classList.toggle('hidden', biz !== 'vd');
+
+    // Nav groups
+    document.getElementById('nav-vs').classList.toggle('active', biz === 'vs');
+    document.getElementById('nav-vd').classList.toggle('active', biz === 'vd');
+
+    // Show first panel of the active biz
+    const firstPanel = biz === 'vs' ? 'vs-daily' : 'vd-daily';
+    const firstBtn   = biz === 'vs' ? 'navbtn-vs-daily' : 'navbtn-vd-daily';
+    showPanel(firstPanel, document.getElementById(firstBtn));
+  }
+
+  // ── Toggle task ──
+  function toggle(id, biz) {
     const el = document.getElementById(id);
     el.classList.toggle('done');
-    const saved = JSON.parse(localStorage.getItem('vd-tasks') || '{}');
+    const key = 'tasks-' + (biz || 'vs');
+    const saved = JSON.parse(localStorage.getItem(key) || '{}');
     saved[id] = el.classList.contains('done');
-    localStorage.setItem('vd-tasks', JSON.stringify(saved));
+    localStorage.setItem(key, JSON.stringify(saved));
     updateBadges();
     updateProgress();
   }
 
   // ── Restore ──
   function restoreState() {
-    const saved = JSON.parse(localStorage.getItem('vd-tasks') || '{}');
-    Object.entries(saved).forEach(([id, done]) => {
-      if (done) {
-        const el = document.getElementById(id);
-        if (el) el.classList.add('done');
-      }
+    ['vs','vd'].forEach(biz => {
+      const saved = JSON.parse(localStorage.getItem('tasks-' + biz) || '{}');
+      Object.entries(saved).forEach(([id, done]) => {
+        if (done) { const el = document.getElementById(id); if (el) el.classList.add('done'); }
+      });
     });
     updateBadges();
     updateProgress();
   }
 
   // ── Badges ──
+  const BADGE_GROUPS = {
+    'vs-daily':    ['vs-d1','vs-d2','vs-d3','vs-d4','vs-d5','vs-d6','vs-d7','vs-d8','vs-d9','vs-d10'],
+    'vs-critical': ['vs-c1','vs-c2','vs-c3','vs-c4','vs-c5','vs-c6','vs-c7','vs-c8','vs-c9','vs-c10','vs-c11'],
+    'vs-javi':     ['vs-j1','vs-j2','vs-j3','vs-j4','vs-j5','vs-j6','vs-j7','vs-j8','vs-j9','vs-j10','vs-j11','vs-j12'],
+    'vd-daily':    ['vd-d1','vd-d2','vd-d3','vd-d4','vd-d5','vd-d6','vd-d7'],
+    'vd-launch':   ['vd-l1','vd-l2','vd-l3','vd-l4','vd-l5'],
+    'vd-clients':  ['vd-a1','vd-a2','vd-a3','vd-a4','vd-r1','vd-r2','vd-r3','vd-r4','vd-r5'],
+  };
+
   function updateBadges() {
-    const groups = {
-      daily: ['d1','d2','d3','d4','d5','d6','d7','d8','d9','d10'],
-      critical: ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10','c11'],
-      vd: ['vd1','vd2','vd3','vd4','vd5','vd6','vd7'],
-      javi: ['j1','j2','j3','j4','j5','j6','j7','j8','j9','j10','j11','j12']
-    };
-    Object.entries(groups).forEach(([key, ids]) => {
-      const remaining = ids.filter(id => {
-        const el = document.getElementById(id);
-        return el && !el.classList.contains('done');
-      }).length;
-      const badge = document.getElementById(key + '-badge');
+    Object.entries(BADGE_GROUPS).forEach(([key, ids]) => {
+      const remaining = ids.filter(id => { const el = document.getElementById(id); return el && !el.classList.contains('done'); }).length;
+      const badge = document.getElementById('badge-' + key);
       if (badge) badge.textContent = remaining;
     });
   }
 
-  // ── Progress ──
+  // ── Progress bars ──
   function updateProgress() {
-    const criticalIds = ['c1','c2','c3','c4','c5','c6','c7','c8'];
-    const done = criticalIds.filter(id => {
-      const el = document.getElementById(id);
-      return el && el.classList.contains('done');
-    }).length;
-    const pct = Math.round((done / criticalIds.length) * 100);
-    const fill = document.getElementById('critical-fill');
-    const pctEl = document.getElementById('critical-pct');
-    if (fill) fill.style.width = pct + '%';
-    if (pctEl) pctEl.textContent = pct + '%';
+    // VS critical
+    const vsIds = ['vs-c1','vs-c2','vs-c3','vs-c4','vs-c5','vs-c6','vs-c7','vs-c8'];
+    const vsDone = vsIds.filter(id => { const el = document.getElementById(id); return el && el.classList.contains('done'); }).length;
+    const vsPct = Math.round((vsDone / vsIds.length) * 100);
+    const vsFill = document.getElementById('vs-critical-fill');
+    const vsPctEl = document.getElementById('vs-critical-pct');
+    const vsDoneLabel = document.getElementById('vs-critical-done-label');
+    if (vsFill) vsFill.style.width = vsPct + '%';
+    if (vsPctEl) vsPctEl.textContent = vsPct + '%';
+    if (vsDoneLabel) vsDoneLabel.textContent = vsDone + ' of ' + vsIds.length + ' complete';
+
+    // VD launch
+    const vdIds = ['vd-l1','vd-l2','vd-l3','vd-l4','vd-l5'];
+    const vdDone = vdIds.filter(id => { const el = document.getElementById(id); return el && el.classList.contains('done'); }).length;
+    const vdPct = Math.round((vdDone / vdIds.length) * 100);
+    const vdFill = document.getElementById('vd-launch-fill');
+    const vdPctEl = document.getElementById('vd-launch-pct');
+    const vdDoneLabel = document.getElementById('vd-launch-done-label');
+    if (vdFill) vdFill.style.width = vdPct + '%';
+    if (vdPctEl) vdPctEl.textContent = vdPct + '%';
+    if (vdDoneLabel) vdDoneLabel.textContent = vdDone + ' of ' + vdIds.length + ' complete';
   }
 
   // ── Navigation ──
   function showPanel(name, btn) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-    document.getElementById('panel-' + name).classList.add('active');
-    btn.classList.add('active');
+    const panel = document.getElementById('panel-' + name);
+    if (panel) panel.classList.add('active');
+    if (btn) btn.classList.add('active');
   }
 
   // ── Copy ──
   function copyText(btn) {
     const block = btn.parentElement;
-    const text = block.textContent.replace('Copy','').trim();
+    const text = block.textContent.replace(/Copy|Copied!/g,'').trim();
     navigator.clipboard.writeText(text).then(() => {
       btn.textContent = 'Copied!';
       setTimeout(() => btn.textContent = 'Copy', 2000);
     });
   }
 
-  // ── Reset ──
-  function resetAll() {
-    if (!confirm('Reset all checkboxes?')) return;
-    localStorage.removeItem('vd-tasks');
-    document.querySelectorAll('.task-item').forEach(el => el.classList.remove('done'));
+  // ── Reset current biz ──
+  function resetBiz() {
+    if (!confirm('Reset ' + (activeBiz === 'vs' ? 'VistaScapes' : 'VistaDigital AI') + ' checkboxes?')) return;
+    localStorage.removeItem('tasks-' + activeBiz);
+    const prefix = activeBiz + '-';
+    document.querySelectorAll('.task-item').forEach(el => {
+      if (el.id && el.id.startsWith(prefix)) el.classList.remove('done');
+    });
     updateBadges();
     updateProgress();
   }
 
-  restoreState();
-
-  // ── Live Data Loader (data.json) ──
+  // ── Live Data Loader ──
   async function loadData() {
     try {
       const res = await fetch('data.json?v=' + Date.now());
       if (!res.ok) return;
       const d = await res.json();
-
-      // GEO score
-      if (d.geo) {
-        const scoreEl = document.getElementById('geo-score');
-        const targetEl = document.getElementById('geo-target');
-        if (scoreEl) {
-          scoreEl.textContent = d.geo.score + '/100';
+      if (d.geo && d.geo.score) {
+        const el = document.getElementById('geo-score');
+        if (el) {
+          el.textContent = d.geo.score + '/100';
           const pct = d.geo.score / 100;
-          scoreEl.style.color = pct >= 0.75 ? 'var(--accent-green)' : pct >= 0.60 ? 'var(--accent-blue)' : 'var(--accent-orange)';
-        }
-        if (targetEl && d.geo.target) {
-          targetEl.textContent = d.geo.target + '/100';
+          el.style.color = pct >= 0.75 ? 'var(--accent-green)' : pct >= 0.60 ? 'var(--accent-blue)' : 'var(--accent-orange)';
         }
       }
-
-      // Reviews
       if (d.reviews && d.reviews.google) {
         const el = document.getElementById('review-count');
-        if (el) {
-          const { count, average } = d.reviews.google;
-          el.textContent = count ? count + ' reviews' + (average ? ' · ' + average + '★' : '') : '? reviews';
-        }
+        const { count, average } = d.reviews.google;
+        if (el) el.textContent = count ? count + ' reviews' + (average ? ' · ' + average + '★' : '') : '? reviews';
       }
-
-      // VistaDigital GBP
-      if (d.platforms) {
-        const el = document.getElementById('vistadigital-gbp-status');
+      if (d.platforms && d.platforms.vistadigitalGBP) {
+        const el = document.getElementById('vd-gbp-status');
         if (el) {
           const s = d.platforms.vistadigitalGBP;
           if (s === 'live') { el.textContent = 'Live'; el.style.color = 'var(--accent-green)'; }
@@ -1641,32 +1741,16 @@
           else { el.textContent = 'Not Created'; el.style.color = 'var(--accent-red)'; }
         }
       }
-
-      // Weekly GBP post content
-      if (d.weeklyContent && d.weeklyContent.gbpPost && d.weeklyContent.gbpPost.content) {
-        const el = document.getElementById('gbp-post-content');
-        if (el) el.textContent = d.weeklyContent.gbpPost.content;
-      }
-
-      // Weekly blog post
-      if (d.weeklyContent && d.weeklyContent.blogPost) {
-        const titleEl = document.getElementById('blog-post-title');
-        const contentEl = document.getElementById('blog-post-preview');
-        if (titleEl && d.weeklyContent.blogPost.title) titleEl.textContent = d.weeklyContent.blogPost.title;
-        if (contentEl && d.weeklyContent.blogPost.content) contentEl.textContent = d.weeklyContent.blogPost.content.slice(0, 300) + '...';
-      }
-
-      // Last updated
       if (d.lastUpdated) {
-        const el = document.getElementById('last-updated');
+        const el = document.getElementById('last-updated-vs');
         if (el) el.textContent = 'Updated ' + d.lastUpdated;
       }
-
-    } catch(e) {
-      // data.json not available — static fallback stays
-    }
+    } catch(e) {}
   }
 
+  // ── Init ──
+  restoreState();
+  switchBiz(activeBiz);
   loadData();
 </script>
 </body>
