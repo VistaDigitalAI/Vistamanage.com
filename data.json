@@ -1,0 +1,61 @@
+{
+  "lastUpdated": "2026-06-09",
+  "geo": {
+    "score": 54,
+    "target": 80,
+    "targetDays": 60,
+    "trend": "baseline"
+  },
+  "reviews": {
+    "google": {
+      "count": null,
+      "average": null
+    }
+  },
+  "platforms": {
+    "vistascapesGBP": "live",
+    "vistadigitalGBP": "not_created",
+    "houzz": "needs_photos",
+    "yelp": "needs_content",
+    "bingPlaces": "not_claimed",
+    "linkedin": "not_created",
+    "bbb": "not_applied",
+    "wikidata": "needs_fields"
+  },
+  "weeklyContent": {
+    "gbpPost": {
+      "generated": false,
+      "week": "2026-06-09",
+      "content": null
+    },
+    "blogPost": {
+      "generated": false,
+      "week": "2026-06-09",
+      "title": "How Much Does a Paver Patio Cost in Tulsa? (2026 Guide)",
+      "content": null
+    }
+  },
+  "seoQueue": [
+    "How Much Does a Paver Patio Cost in Tulsa? (2026 Guide)",
+    "Outdoor Kitchen vs. Covered Patio: Which Adds More Value in Tulsa?",
+    "Best Pergola Materials for Oklahoma Weather (Cedar vs Aluminum vs Vinyl)",
+    "How Long Does It Take to Build an Outdoor Kitchen in Broken Arrow?",
+    "Retaining Wall vs French Drain: Which Does Your Tulsa Yard Need?",
+    "Outdoor Kitchen Contractors in Tulsa: What to Look for (and What to Avoid)",
+    "Belgard vs Techo-Bloc Pavers: Which Is Better for Oklahoma?",
+    "How Much Does a Pavilion Cost in Tulsa? (2026 Pricing Guide)"
+  ],
+  "criticalTasks": {
+    "schema_fixes_ready": false,
+    "founding_year_confirmed": false,
+    "reviews_count_provided": false,
+    "gbp_review_link_provided": false,
+    "houzz_populated": false,
+    "yelp_populated": false,
+    "bing_places_claimed": false,
+    "linkedin_created": false,
+    "bbb_applied": false,
+    "wikidata_updated": false,
+    "vistadigital_gbp_created": false
+  }
+}

@@ -521,12 +521,12 @@
   <div class="score-chip">
     <div class="score-dot" style="background:var(--accent-orange)"></div>
     <span class="label">GEO Score</span>
-    <span class="value" style="color:var(--accent-orange)">54/100</span>
+    <span class="value" style="color:var(--accent-orange)" id="geo-score">54/100</span>
   </div>
   <div class="score-chip">
     <div class="score-dot" style="background:var(--accent-blue)"></div>
     <span class="label">Target (60 days)</span>
-    <span class="value" style="color:var(--accent-blue)">80/100</span>
+    <span class="value" style="color:var(--accent-blue)" id="geo-target">80/100</span>
   </div>
   <div class="score-chip">
     <div class="score-dot" style="background:var(--accent-green)"></div>
@@ -536,12 +536,16 @@
   <div class="score-chip">
     <div class="score-dot" style="background:var(--accent-purple)"></div>
     <span class="label">VistaDigital GBP</span>
-    <span class="value" style="color:var(--accent-red)">Not Created</span>
+    <span class="value" id="vistadigital-gbp-status" style="color:var(--accent-red)">Not Created</span>
   </div>
   <div class="score-chip">
     <div class="score-dot" style="background:var(--accent-yellow)"></div>
     <span class="label">VistaScapes GBP</span>
     <span class="value" style="color:var(--accent-green)">Live</span>
+  </div>
+  <div class="score-chip" style="margin-left:auto">
+    <div class="score-dot" style="background:var(--muted)"></div>
+    <span class="label" id="last-updated" style="color:var(--muted)">Updated —</span>
   </div>
 </div>
 
@@ -1596,6 +1600,74 @@
   }
 
   restoreState();
+
+  // ── Live Data Loader (data.json) ──
+  async function loadData() {
+    try {
+      const res = await fetch('data.json?v=' + Date.now());
+      if (!res.ok) return;
+      const d = await res.json();
+
+      // GEO score
+      if (d.geo) {
+        const scoreEl = document.getElementById('geo-score');
+        const targetEl = document.getElementById('geo-target');
+        if (scoreEl) {
+          scoreEl.textContent = d.geo.score + '/100';
+          const pct = d.geo.score / 100;
+          scoreEl.style.color = pct >= 0.75 ? 'var(--accent-green)' : pct >= 0.60 ? 'var(--accent-blue)' : 'var(--accent-orange)';
+        }
+        if (targetEl && d.geo.target) {
+          targetEl.textContent = d.geo.target + '/100';
+        }
+      }
+
+      // Reviews
+      if (d.reviews && d.reviews.google) {
+        const el = document.getElementById('review-count');
+        if (el) {
+          const { count, average } = d.reviews.google;
+          el.textContent = count ? count + ' reviews' + (average ? ' · ' + average + '★' : '') : '? reviews';
+        }
+      }
+
+      // VistaDigital GBP
+      if (d.platforms) {
+        const el = document.getElementById('vistadigital-gbp-status');
+        if (el) {
+          const s = d.platforms.vistadigitalGBP;
+          if (s === 'live') { el.textContent = 'Live'; el.style.color = 'var(--accent-green)'; }
+          else if (s === 'pending') { el.textContent = 'Pending'; el.style.color = 'var(--accent-yellow)'; }
+          else { el.textContent = 'Not Created'; el.style.color = 'var(--accent-red)'; }
+        }
+      }
+
+      // Weekly GBP post content
+      if (d.weeklyContent && d.weeklyContent.gbpPost && d.weeklyContent.gbpPost.content) {
+        const el = document.getElementById('gbp-post-content');
+        if (el) el.textContent = d.weeklyContent.gbpPost.content;
+      }
+
+      // Weekly blog post
+      if (d.weeklyContent && d.weeklyContent.blogPost) {
+        const titleEl = document.getElementById('blog-post-title');
+        const contentEl = document.getElementById('blog-post-preview');
+        if (titleEl && d.weeklyContent.blogPost.title) titleEl.textContent = d.weeklyContent.blogPost.title;
+        if (contentEl && d.weeklyContent.blogPost.content) contentEl.textContent = d.weeklyContent.blogPost.content.slice(0, 300) + '...';
+      }
+
+      // Last updated
+      if (d.lastUpdated) {
+        const el = document.getElementById('last-updated');
+        if (el) el.textContent = 'Updated ' + d.lastUpdated;
+      }
+
+    } catch(e) {
+      // data.json not available — static fallback stays
+    }
+  }
+
+  loadData();
 </script>
 </body>
 </html>
