@@ -610,6 +610,10 @@
             <span class="icon">👥</span> Client Work Queue
             <span class="nav-badge orange" id="badge-vd-clients">9</span>
           </button>
+          <button class="nav-item" id="navbtn-vd-geo" onclick="showPanel('vd-geo', this)">
+            <span class="icon">🤖</span> GEO + SEO Pipeline
+            <span class="nav-badge" id="badge-vd-geo">8</span>
+          </button>
           <button class="nav-item" id="navbtn-vd-gbp" onclick="showPanel('vd-gbp', this)">
             <span class="icon">📍</span> Create GBP Guide
             <span class="nav-badge orange">!</span>
@@ -1472,6 +1476,151 @@
       </div>
     </div>
 
+    <!-- VD: GEO + SEO Pipeline -->
+    <div id="panel-vd-geo" class="panel">
+      <div class="section-header">
+        <h2>🤖 GEO + SEO Pipeline — VistaDigital AI</h2>
+        <p>Brand new site · 2/10 GEO · All AI crawlers currently blocked</p>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="card-label">GEO Score</div>
+          <div class="card-value" style="color:var(--accent-red)">2/10</div>
+          <div class="card-sub">AI crawlers blocked</div>
+        </div>
+        <div class="info-card">
+          <div class="card-label">SEO Score</div>
+          <div class="card-value" style="color:var(--accent-orange)">5/10</div>
+          <div class="card-sub">Foundation exists</div>
+        </div>
+        <div class="info-card">
+          <div class="card-label">60-Day Target</div>
+          <div class="card-value" style="color:var(--accent-blue)">7/10</div>
+          <div class="card-sub">Both GEO + SEO</div>
+        </div>
+        <div class="info-card">
+          <div class="card-label">llms.txt</div>
+          <div class="card-value" style="color:var(--accent-red)">Missing</div>
+          <div class="card-sub">File ready to upload</div>
+        </div>
+      </div>
+
+      <div class="task-group">
+        <div class="task-group-header">
+          <h3>🚨 Do This First — Unlocks All AI Systems</h3>
+          <span class="tag tag-red">This Week · 30 min</span>
+        </div>
+
+        <div class="task-item" id="vd-g1" onclick="toggle('vd-g1','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Turn off Cloudflare AI crawler block</div>
+            <div class="task-meta">dash.cloudflare.com → Security → Bots → OFF "Block AI Scrapers and Crawlers" · Currently blocking ChatGPT, Claude, Gemini, Meta AI, Google AI Overviews — all of them</div>
+          </div>
+          <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-g2" onclick="toggle('vd-g2','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Upload /llms.txt to vistadigitalai.com root</div>
+            <div class="task-meta">File ready at /Users/javi/VistaDigital/llms.txt · Upload to vistadigitalai.com/llms.txt · Tells AI what your business does + cites pricing</div>
+          </div>
+          <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-g3" onclick="toggle('vd-g3','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Replace homepage schema with LocalBusiness JSON-LD</div>
+            <div class="task-meta">File at /Users/javi/VistaDigital/schema-homepage.json · Replaces wrong ProfessionalService type · Adds GeoCoordinates, OpeningHours, sameAs, pricing</div>
+          </div>
+          <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-g4" onclick="toggle('vd-g4','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Add FAQ + Service schema to /services.html</div>
+            <div class="task-meta">File at /Users/javi/VistaDigital/schema-services-faq.json · 7 FAQs + pricing structure · Makes your pricing citable by AI for "how much does SEO cost" queries</div>
+          </div>
+          <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+        </div>
+      </div>
+
+      <div class="task-group">
+        <div class="task-group-header">
+          <h3>Week 2 — E-E-A-T + Authority</h3>
+          <span class="tag tag-orange">Claude writes · Javi uploads</span>
+        </div>
+
+        <div class="task-item" id="vd-g5" onclick="toggle('vd-g5','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Create GBP for VistaDigital AI + add URL to schema sameAs</div>
+            <div class="task-meta">See GBP Guide tab · Once verified, share the GBP URL → Claude updates the schema</div>
+          </div>
+          <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-g6" onclick="toggle('vd-g6','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Expand About page to 600+ words (Claude writes)</div>
+            <div class="task-meta">Current: ~300 words · No founder story, no credentials · Ask Claude: "Write the VistaDigital About page" and it'll build it</div>
+          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-g7" onclick="toggle('vd-g7','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Create Clutch.co profile for VistaDigital AI</div>
+            <div class="task-meta">clutch.co/agencies · #1 directory AI systems cite for agency recommendations · Add VistaScapes as a case study</div>
+          </div>
+          <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+        </div>
+
+        <div class="task-item" id="vd-g8" onclick="toggle('vd-g8','vd')">
+          <div class="checkbox"><span class="checkbox-check">✓</span></div>
+          <div class="task-content">
+            <div class="task-title">Ask Claude to build 3 city service pages (Tulsa + Broken Arrow + Bixby)</div>
+            <div class="task-meta">Say: "Build the Tulsa SEO agency landing page for vistadigitalai.com" · Each page = 1,000+ words + schema + local proof</div>
+          </div>
+          <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
+        </div>
+      </div>
+
+      <div class="task-group">
+        <div class="task-group-header"><h3>Claude Handles Automatically</h3><span class="tag tag-green">No action needed</span></div>
+        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
+          <div class="task-content">
+            <div class="task-title">✅ llms.txt — Written and ready to upload</div>
+            <div class="task-meta">/Users/javi/VistaDigital/llms.txt · Includes services, pricing, clients, case study, service area</div>
+          </div>
+        </div>
+        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
+          <div class="task-content">
+            <div class="task-title">✅ LocalBusiness schema — Written and ready to paste</div>
+            <div class="task-meta">/Users/javi/VistaDigital/schema-homepage.json · Correct type, GeoCoordinates, pricing catalog, Person schema for Javi</div>
+          </div>
+        </div>
+        <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
+          <div class="task-content">
+            <div class="task-title">✅ FAQPage + Service schema — Written and ready to paste</div>
+            <div class="task-meta">/Users/javi/VistaDigital/schema-services-faq.json · 7 FAQs covering pricing, timelines, GHL, service area</div>
+          </div>
+        </div>
+        <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22">
+          <div class="task-content">
+            <div class="task-title">🔧 Blog post schema fixes — Blog datePublished + author → Person (Claude does on request)</div>
+            <div class="task-meta">Say: "Fix the blog post schema on vistadigitalai.com" and Claude writes the corrected JSON-LD blocks</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- VD: GBP Guide -->
     <div id="panel-vd-gbp" class="panel">
       <div class="section-header">
@@ -1647,6 +1796,7 @@
     'vd-daily':    ['vd-d1','vd-d2','vd-d3','vd-d4','vd-d5','vd-d6','vd-d7'],
     'vd-launch':   ['vd-l1','vd-l2','vd-l3','vd-l4','vd-l5'],
     'vd-clients':  ['vd-a1','vd-a2','vd-a3','vd-a4','vd-r1','vd-r2','vd-r3','vd-r4','vd-r5'],
+    'vd-geo':      ['vd-g1','vd-g2','vd-g3','vd-g4','vd-g5','vd-g6','vd-g7','vd-g8'],
   };
 
   function updateBadges() {
