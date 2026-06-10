@@ -569,7 +569,7 @@
     <div class="score-chip">
       <div class="score-dot" style="background:var(--accent-orange)"></div>
       <span class="label">GEO Score</span>
-      <span class="value" style="color:var(--accent-orange)" id="geo-score">54/100</span>
+      <span class="value" style="color:var(--accent-orange)" id="geo-score">58/100</span>
     </div>
     <div class="score-chip">
       <div class="score-dot" style="background:var(--accent-blue)"></div>
@@ -670,6 +670,10 @@
           </button>
           <button class="nav-item" id="navbtn-vs-assets" onclick="showPanel('vs-assets', this)">
             <span class="icon">📋</span> Schema &amp; Copy Assets
+          </button>
+          <button class="nav-item" id="navbtn-vs-audit" onclick="showPanel('vs-audit', this)">
+            <span class="icon">🔍</span> SEO/GEO Audit
+            <span class="nav-badge orange">Jun 2026</span>
           </button>
           <button class="nav-item" id="navbtn-vs-platforms" onclick="showPanel('vs-platforms', this)">
             <span class="icon">🔗</span> Platform Status
@@ -1608,6 +1612,431 @@ Requirements:
       </div>
     </div>
 
+
+    <!-- VS: SEO / GEO Audit — June 10, 2026 -->
+    <div id="panel-vs-audit" class="panel">
+      <div class="section-header">
+        <h2>🔍 SEO/GEO Audit — VistaScapes</h2>
+        <p>Comprehensive audit completed June 10, 2026 · vistascapesdesign.com</p>
+      </div>
+
+      <div class="panel-tabs">
+        <button class="panel-tab active" onclick="switchTab('panel-vs-audit','vs-audit-tab-scorecard',this)">Scorecard</button>
+        <button class="panel-tab" onclick="switchTab('panel-vs-audit','vs-audit-tab-critical',this)">Critical Fixes</button>
+        <button class="panel-tab" onclick="switchTab('panel-vs-audit','vs-audit-tab-geo',this)">GEO Wins</button>
+        <button class="panel-tab" onclick="switchTab('panel-vs-audit','vs-audit-tab-speed',this)">Speed</button>
+      </div>
+
+      <!-- ── Tab 1: Scorecard ── -->
+      <div id="vs-audit-tab-scorecard" class="tab-content active">
+        <div class="info-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom:16px">
+          <div class="info-card" style="border-color:#ff8c4233; background:#ff8c4208">
+            <div class="card-label">Technical SEO</div>
+            <div class="card-value" style="color:var(--accent-orange)">68<span style="font-size:13px;font-weight:500;color:var(--muted)">/100</span></div>
+            <div class="card-sub">4 critical issues open</div>
+          </div>
+          <div class="info-card" style="border-color:#ff8c4233; background:#ff8c4208">
+            <div class="card-label">GEO Score</div>
+            <div class="card-value" style="color:var(--accent-orange)">58<span style="font-size:13px;font-weight:500;color:var(--muted)">/100</span></div>
+            <div class="card-sub">Citability is weakest link</div>
+          </div>
+          <div class="info-card" style="border-color:#ff4d6d33; background:#ff4d6d08">
+            <div class="card-label">Speed</div>
+            <div class="card-value" style="color:var(--accent-red)">5.5<span style="font-size:13px;font-weight:500;color:var(--muted)">/10</span></div>
+            <div class="card-sub">Divi CSS bloat + fonts</div>
+          </div>
+          <div class="info-card" style="border-color:#00d4a033; background:#00d4a008">
+            <div class="card-label">Forms</div>
+            <div class="card-value" style="color:var(--accent-green)">✅</div>
+            <div class="card-sub">All correct on all pages</div>
+          </div>
+          <div class="info-card" style="border-color:#4d9fff33; background:#4d9fff08">
+            <div class="card-label">Mobile</div>
+            <div class="card-value" style="color:var(--accent-blue)">Mostly</div>
+            <div class="card-sub">Dead nav links + calendar below fold</div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>GEO Dimension Breakdown</h3><span class="tag tag-orange">Jun 10, 2026</span></div>
+          <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
+            <div class="task-content">
+              <div class="task-title">AI Crawler Access — 8/10 ✅</div>
+              <div class="task-meta">GPTBot, ClaudeBot, PerplexityBot, Google-Extended all whitelisted</div>
+            </div>
+            <div class="task-right"><span class="tag tag-green">Strong</span></div>
+          </div>
+          <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
+            <div class="task-content">
+              <div class="task-title">llms.txt — 7/10 ✅</div>
+              <div class="task-meta">Live · Missing pricing ranges + Q&amp;A block</div>
+            </div>
+            <div class="task-right"><span class="tag tag-green">Good</span></div>
+          </div>
+          <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022">
+            <div class="task-content">
+              <div class="task-title">Schema — 7.5/10</div>
+              <div class="task-meta">Missing aggregateRating + duplicate blocks on homepage</div>
+            </div>
+            <div class="task-right"><span class="tag tag-green">Good</span></div>
+          </div>
+          <div class="task-item" style="cursor:default; background:#ff8c4208; border-color:#ff8c4233">
+            <div class="task-content">
+              <div class="task-title">Content Citability — 6/10 ← biggest gap</div>
+              <div class="task-meta">Pergola page has zero FAQ + zero pricing · Top priority to rebuild</div>
+            </div>
+            <div class="task-right"><span class="tag tag-orange">Fix First</span></div>
+          </div>
+          <div class="task-item" style="cursor:default; background:#ff4d6d08; border-color:#ff4d6d22">
+            <div class="task-content">
+              <div class="task-title">Brand Authority — 3.5/10 ← weakest dimension</div>
+              <div class="task-meta">No BBB · No Houzz reviews · No YouTube channel · No press mentions</div>
+            </div>
+            <div class="task-right"><span class="tag tag-red">Critical</span></div>
+          </div>
+          <div class="task-item" style="cursor:default; background:#ff8c4208; border-color:#ff8c4233">
+            <div class="task-content">
+              <div class="task-title">Structural Readability — 6.5/10</div>
+              <div class="task-meta">No founder entity · No WebP images · Hero image not preloadable</div>
+            </div>
+            <div class="task-right"><span class="tag tag-orange">Medium</span></div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>Issues by Priority Count</h3></div>
+          <div class="info-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="info-card" style="border-color:#ff4d6d33; background:#ff4d6d08; text-align:center">
+              <div class="card-label">Critical</div>
+              <div class="card-value" style="color:var(--accent-red)">4</div>
+              <div class="card-sub">Fix this week</div>
+            </div>
+            <div class="info-card" style="border-color:#ff8c4233; background:#ff8c4208; text-align:center">
+              <div class="card-label">High</div>
+              <div class="card-value" style="color:var(--accent-orange)">8</div>
+              <div class="card-sub">Fix this month</div>
+            </div>
+            <div class="info-card" style="border-color:#ffd16633; background:#ffd16608; text-align:center">
+              <div class="card-label">Medium</div>
+              <div class="card-value" style="color:var(--accent-yellow)">6</div>
+              <div class="card-sub">Next 30 days</div>
+            </div>
+            <div class="info-card" style="border-color:#00d4a033; background:#00d4a008; text-align:center">
+              <div class="card-label">Passing</div>
+              <div class="card-value" style="color:var(--accent-green)">Forms ✅</div>
+              <div class="card-sub">All service pages</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tab 2: Critical Fixes ── -->
+      <div id="vs-audit-tab-critical" class="tab-content">
+        <div class="task-item" style="cursor:default; background:#ff4d6d08; border-color:#ff4d6d33; margin-bottom:14px">
+          <div class="task-content">
+            <div class="task-title" style="color:var(--accent-red)">4 Critical Issues — Fix This Week</div>
+            <div class="task-meta">Each one is actively hurting rankings or blocking AI crawlers right now</div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>Fix 1 — 404 Page</h3><span class="tag tag-red">Crawl Error</span></div>
+          <div class="file-card">
+            <div class="file-card-header"><span class="file-card-title">/covered-patios-tulsa/ returns 404</span></div>
+            <div class="file-card-sub">Dead URL sends crawl equity to nowhere · Any backlinks to it are wasted</div>
+            <div class="code-block" id="vs-fix1">Fix options (pick one):
+1. Create the page: Build a "Covered Patios Tulsa" service page (1,400+ words, FAQ schema, LocalBusiness schema)
+2. 301 redirect: In Rocket.net / Cloudflare, add redirect rule:
+   /covered-patios-tulsa/ → /covered-patios-tulsa-ok/
+   (or whichever is the canonical covered patios URL)
+
+Recommended: create the page — it's a high-value service keyword for Tulsa.</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('vs-fix1',this)">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('vs-fix1',this)">Copy fix</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>Fix 2 — www subdomain doesn't resolve</h3><span class="tag tag-red">DNS Error</span></div>
+          <div class="file-card">
+            <div class="file-card-header"><span class="file-card-title">www.vistascapesdesign.com returns connection error</span></div>
+            <div class="file-card-sub">Any user who types "www." gets an error · Hurts Google's confidence in the domain</div>
+            <div class="code-block" id="vs-fix2">In Cloudflare DNS dashboard:
+1. Go to DNS → Records
+2. Add or verify a CNAME record:
+   Type: CNAME
+   Name: www
+   Target: vistascapesdesign.com
+   Proxy: ✅ (orange cloud ON)
+3. Also verify in Rocket.net that www is listed as an alias domain
+4. After adding, test: https://www.vistascapesdesign.com should load (302 → non-www is fine)</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('vs-fix2',this)">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('vs-fix2',this)">Copy fix</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>Fix 3 — Wrong canonical on pergola page</h3><span class="tag tag-red">Duplicate Content</span></div>
+          <div class="file-card">
+            <div class="file-card-header"><span class="file-card-title">/pergola-builders-tulsa/ points to wrong canonical URL</span></div>
+            <div class="file-card-sub">Page canonicals to the "-area-ok/" variant instead of itself · Tells Google to ignore this URL</div>
+            <div class="code-block" id="vs-fix3">In WordPress (Yoast SEO):
+1. Open: /pergola-builders-tulsa/ in editor
+2. Yoast → Advanced → Canonical URL
+3. Change from: https://vistascapesdesign.com/pergola-builders-tulsa-area-ok/
+4. Change to:   https://vistascapesdesign.com/pergola-builders-tulsa/
+5. Save + Purge Rocket.net CDN for this URL
+
+Also verify the "-area-ok/" variant either:
+- Redirects to /pergola-builders-tulsa/ (preferred)
+- Or has its own self-referencing canonical</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('vs-fix3',this)">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('vs-fix3',this)">Copy fix</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>Fix 4 — form_embed.js loads twice</h3><span class="tag tag-red">Perf / JS Error</span></div>
+          <div class="file-card">
+            <div class="file-card-header"><span class="file-card-title">GHL form_embed.js is loaded twice with no defer attribute</span></div>
+            <div class="file-card-sub">Causes form rendering delay + potential double-fire on submit · Blocks HTML parse on each load</div>
+            <div class="code-block" id="vs-fix4">In WordPress (header.php or Divi Custom Code → Head):
+1. Search for "form_embed.js" — find both instances
+2. Remove the DUPLICATE (keep only one)
+3. On the remaining instance, add defer:
+   BEFORE: &lt;script src="...form_embed.js"&gt;&lt;/script&gt;
+   AFTER:  &lt;script defer src="...form_embed.js"&gt;&lt;/script&gt;
+
+Note: GHL forms are all confirmed correct — AD LEAD FORM on service pages, Contact form on contact page, Calendar on consultation page. Only the script loading is broken, not the forms themselves.</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('vs-fix4',this)">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('vs-fix4',this)">Copy fix</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>High Priority — Fix This Month (8 issues)</h3><span class="tag tag-orange">High</span></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">5. Duplicate schema blocks on homepage — 2× FAQPage, 2× WebPage, 2× LocalBusiness</div><div class="task-meta">Claude can fix via WP REST API · Remove second block of each type</div></div><div class="task-right"><span class="tag tag-orange">Schema</span></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">6. Homepage meta description is 203 chars — trim to ≤150</div><div class="task-meta">In Yoast → Search Appearance on homepage · Gets truncated in SERPs right now</div></div><div class="task-right"><span class="tag tag-orange">Meta</span></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">7. 3 pages missing meta descriptions (pergola canonical, consultation ×2)</div><div class="task-meta">Write and add in Yoast on each page · ~5 min each</div></div><div class="task-right"><span class="tag tag-orange">Meta</span></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">8. Header nav links dead: Concrete / Flagstone / Drainage / Grading / Irrigation → all href="#"</div><div class="task-meta">Build pages or remove nav items · Dead nav erodes crawl efficiency</div></div><div class="task-right"><span class="tag tag-orange">Nav</span></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">9. Consultation calendar is 88% down the page — move above fold</div><div class="task-meta">Mobile conversion killer · Drag calendar section to top in Divi</div></div><div class="task-right"><span class="tag tag-orange">UX</span></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">10. Hero image is CSS background — browser can't preload it</div><div class="task-meta">Add &lt;link rel="preload" as="image" href="..."&gt; in &lt;head&gt; · Fixes LCP</div></div><div class="task-right"><span class="tag tag-orange">Perf</span></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">11. 3 Google Font families × 9 weights each, loaded TWICE</div><div class="task-meta">WP Rocket → Load Google Fonts Locally · Remove duplicate enqueue in functions.php</div></div><div class="task-right"><span class="tag tag-orange">Perf</span></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">12. No aggregateRating in LocalBusiness schema</div><div class="task-meta">30-min fix · Provide review count + star average to Claude to push</div></div><div class="task-right"><span class="tag tag-orange">Schema</span></div></div>
+        </div>
+      </div>
+
+      <!-- ── Tab 3: GEO Wins ── -->
+      <div id="vs-audit-tab-geo" class="tab-content">
+        <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff33; margin-bottom:14px">
+          <div class="task-content">
+            <div class="task-title">GEO Score: 58/100 · Target: 80/100 · These 5 moves get you there fastest</div>
+            <div class="task-meta">Ranked by expected citation-frequency impact · Current weakest dimension: Brand Authority (3.5/10)</div>
+          </div>
+        </div>
+
+        <ol class="step-list">
+          <li class="step-item">
+            <div class="step-num" style="background:#ff8c4222; border-color:#ff8c4244; color:var(--accent-orange)">1</div>
+            <div class="step-content">
+              <div class="step-title">Rebuild pergola page with FAQ + pricing content</div>
+              <div class="step-desc">Pergola page is the highest-intent URL on the site and currently has zero citability — no FAQ, no pricing, no structured data worth citing. A full rebuild adds ~+6 GEO points alone.<br><br>Ask Claude: "Rebuild /pergola-builders-tulsa/ with 1,600+ words, 7-question FAQ schema, pricing tiers ($8K–$20K range), and all existing schema preserved."</div>
+              <div class="code-block" id="vs-geo-win1" style="margin-top:8px">Rebuild the /pergola-builders-tulsa/ page on vistascapesdesign.com.
+
+Current issues: zero FAQ content, no pricing, weak citability.
+
+Requirements:
+- 1,600+ words
+- H1: "Pergola Builders in Tulsa, OK | VistaScapes & Design"
+- Pricing section: cedar $8K–$15K, aluminum $12K–$20K, vinyl $10K–$18K
+- 7-question FAQ block (pergola permit Tulsa, maintenance, materials, timeline, HOA rules)
+- FAQPage + LocalBusiness schema
+- Fix canonical: self-reference to /pergola-builders-tulsa/
+- Push via WP REST API, purge Rocket.net CDN after</div>
+              <div class="code-actions">
+                <button class="code-btn" onclick="toggleExpand('vs-geo-win1',this)">Expand</button>
+                <button class="code-btn primary" onclick="copyCode('vs-geo-win1',this)">Copy prompt</button>
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-num" style="background:#a78bfa22; border-color:#a78bfa44; color:var(--accent-purple)">2</div>
+            <div class="step-content">
+              <div class="step-title">Launch YouTube channel — 0.737 correlation with AI citation frequency</div>
+              <div class="step-desc">YouTube presence is the single highest-leverage brand authority move available. Audit data shows 0.737 Pearson correlation between YouTube presence and AI citation frequency for local contractors. Even 4–6 videos makes a significant difference.<br><br>Content ideas: project walkthroughs, "how much does X cost in Tulsa," material comparisons, before/after reveals.</div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-num" style="background:#ff8c4222; border-color:#ff8c4244; color:var(--accent-orange)">3</div>
+            <div class="step-content">
+              <div class="step-title">Claim BBB + build Houzz + Angi profiles</div>
+              <div class="step-desc">Brand Authority is 3.5/10 — the weakest dimension. BBB accreditation is a direct trust signal AI systems check. Houzz is cited by ChatGPT more than any other contractor review platform. Together these three profiles can push Brand Authority to ~6/10.<br><br>
+              <strong>BBB:</strong> bbb.org/eastern-oklahoma · ~$400/yr<br>
+              <strong>Houzz:</strong> pro.houzz.com · Free · Upload 15+ photos<br>
+              <strong>Angi:</strong> angi.com/pro · Free basic listing</div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-num" style="background:#00d4a022; border-color:#00d4a044; color:var(--accent-green)">4</div>
+            <div class="step-content">
+              <div class="step-title">Add aggregateRating to schema — 30-minute fix</div>
+              <div class="step-desc">This is the fastest GEO win available. A populated aggregateRating block makes VistaScapes machine-readable as a rated business — AI systems weight this heavily for local contractor recommendations. Just provide your review count + star average to Claude and it pushes within 5 min.</div>
+              <div class="code-block" id="vs-geo-win4" style="margin-top:8px">Push aggregateRating schema to all VistaScapes service pages.
+
+My current Google reviews:
+- Count: [X reviews]
+- Average: [X.X stars]
+
+Add to: homepage, outdoor kitchen page, pergola page, paver patio page, covered patios page.
+Use WP REST API. Purge Rocket.net CDN after each push.</div>
+              <div class="code-actions">
+                <button class="code-btn primary" onclick="copyCode('vs-geo-win4',this)">Copy prompt</button>
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item">
+            <div class="step-num" style="background:#4d9fff22; border-color:#4d9fff44; color:var(--accent-blue)">5</div>
+            <div class="step-content">
+              <div class="step-title">Enrich llms.txt with pricing, Q&amp;A, and license declaration</div>
+              <div class="step-desc">Current llms.txt is live but missing the content AI systems extract most: pricing ranges, FAQ-style Q&amp;A, and a license/insurance declaration. Adding these sections can push the llms.txt score from 7 to 9+ and directly increases citability for "how much does X cost in Tulsa" queries.</div>
+              <div class="code-block" id="vs-geo-win5" style="margin-top:8px">Update vistascapesdesign.com/llms.txt with these additions:
+
+1. Add pricing ranges section:
+   ## Pricing Ranges
+   - Paver patios: $15–$45/sqft installed
+   - Pergolas: $8,000–$20,000
+   - Outdoor kitchens: $15,000–$65,000
+   - Covered patios: $12,000–$35,000
+   - Retaining walls: $30–$60/sqft
+
+2. Add Q&A block (5–7 questions from FAQ pages)
+
+3. Add license/insurance declaration:
+   ## License & Insurance
+   - Fully insured · General liability + workers comp
+   - [Add license # if applicable]
+   - Service area: Tulsa Metro + surrounding communities
+
+Push via WP REST API or direct file edit.</div>
+              <div class="code-actions">
+                <button class="code-btn" onclick="toggleExpand('vs-geo-win5',this)">Expand</button>
+                <button class="code-btn primary" onclick="copyCode('vs-geo-win5',this)">Copy prompt</button>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="task-group" style="margin-top:16px">
+          <div class="task-group-header"><h3>Medium Priority GEO Fixes</h3><span class="tag tag-yellow">Next 30 Days</span></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">13. Add founder (Person) entity to schema — Javi Uriostegui as owner</div><div class="task-meta">Strengthens entity graph · Claude can push in &lt;5 min</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">14. Convert all images to WebP format — currently zero WebP on site</div><div class="task-meta">WP Rocket or ShortPixel can batch-convert · Improves LCP + structural readability score</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">15. Fix Cloudflare cache EXPIRED on pergola page</div><div class="task-meta">Purge and set cache TTL to 1 month for static service pages</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">16. Add width + height to 2 images on Contact page</div><div class="task-meta">Missing dimensions cause layout shift (CLS) · 5-min fix in Divi</div></div></div>
+        </div>
+      </div>
+
+      <!-- ── Tab 4: Speed ── -->
+      <div id="vs-audit-tab-speed" class="tab-content">
+        <div class="info-grid" style="grid-template-columns: repeat(3,1fr); margin-bottom:16px">
+          <div class="info-card" style="border-color:#ff4d6d33; background:#ff4d6d08; text-align:center">
+            <div class="card-label">Speed Score</div>
+            <div class="card-value" style="color:var(--accent-red)">5.5<span style="font-size:12px;color:var(--muted)">/10</span></div>
+            <div class="card-sub">Below acceptable</div>
+          </div>
+          <div class="info-card" style="border-color:#ff8c4233; background:#ff8c4208; text-align:center">
+            <div class="card-label">Inline CSS</div>
+            <div class="card-value" style="color:var(--accent-orange)">336KB</div>
+            <div class="card-sub">Divi bloat · #1 killer</div>
+          </div>
+          <div class="info-card" style="border-color:#ff8c4233; background:#ff8c4208; text-align:center">
+            <div class="card-label">Font Requests</div>
+            <div class="card-value" style="color:var(--accent-orange)">54</div>
+            <div class="card-sub">3 families × 9 weights × 2 loads</div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>Top 3 Speed Killers — Fix Order</h3><span class="tag tag-red">Priority</span></div>
+
+          <div class="file-card">
+            <div class="file-card-header"><span class="file-card-title">Fix A — Fonts (Biggest Bang for Time)</span></div>
+            <div class="file-card-sub">3 Google Font families × 9 weights each, loading twice · Estimated savings: 1.2–1.8s FCP improvement</div>
+            <div class="code-block" id="vs-speed-fonts">WP Rocket → Fonts tab:
+1. Enable "Load Google Fonts Locally"
+   This self-hosts the fonts, eliminating the 2 external Google Fonts calls
+2. Enable "Preload Fonts" for your primary body font only
+3. In Divi Theme Options → General → Google Fonts:
+   - Remove duplicate font family entries (keep each family once)
+   - Reduce weights: most designs only need 400 + 600 (regular + semibold)
+4. Hard-purge WP Rocket cache after changes
+5. Test at pagespeed.web.dev — should see FCP drop by 1s+</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('vs-speed-fonts',this)">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('vs-speed-fonts',this)">Copy fix</button>
+            </div>
+          </div>
+
+          <div class="file-card">
+            <div class="file-card-header"><span class="file-card-title">Fix B — Hero Image Preload</span></div>
+            <div class="file-card-sub">Hero is a CSS background-image — browser discovers it late · Preload link fixes LCP</div>
+            <div class="code-block" id="vs-speed-hero">In WordPress → Divi → Theme Options → Integration → Add code to the &lt;head&gt;:
+
+&lt;link rel="preload" as="image" href="[HERO_IMAGE_URL]" fetchpriority="high"&gt;
+
+To find the hero image URL:
+1. Right-click hero on homepage → Inspect
+2. Find the CSS background-image url() value
+3. Paste that URL into the preload tag above
+
+Also: convert the hero image to WebP first (ShortPixel or Smush), then update the CSS background-image URL and the preload href to the new .webp file.</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('vs-speed-hero',this)">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('vs-speed-hero',this)">Copy fix</button>
+            </div>
+          </div>
+
+          <div class="file-card">
+            <div class="file-card-header"><span class="file-card-title">Fix C — Divi CSS Bloat (336KB inline)</span></div>
+            <div class="file-card-sub">Divi inlines all dynamic CSS in &lt;style&gt; tags · Hard to eliminate entirely but can reduce significantly</div>
+            <div class="code-block" id="vs-speed-css">In WP Rocket → File Optimization:
+1. Enable "Minify CSS" + "Combine CSS"
+2. Enable "Remove Unused CSS" (use Safe Mode first, test each page)
+3. Enable "Defer Non-Critical CSS" (test that above-the-fold looks correct)
+
+In Divi → Performance:
+- Enable "Static CSS File Generation" — outputs a single file instead of inline styles
+- Enable "Critical CSS" for above-the-fold styles
+
+These 5 settings alone can reduce the render-blocking CSS from 336KB to ~80–120KB.
+Test after each change and revert if anything breaks visually.</div>
+            <div class="code-actions">
+              <button class="code-btn" onclick="toggleExpand('vs-speed-css',this)">Expand</button>
+              <button class="code-btn primary" onclick="copyCode('vs-speed-css',this)">Copy fix</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="task-group">
+          <div class="task-group-header"><h3>Forms Audit — All Passing ✅</h3><span class="tag tag-green">No Action Needed</span></div>
+          <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022"><div class="task-content"><div class="task-title">AD LEAD FORM (yVkuLFeMrzlqiu3Qkkcb) — confirmed on all service pages ✅</div></div></div>
+          <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022"><div class="task-content"><div class="task-title">Contact Us (3XfsfZ8vL0irV6UlVo1F) — on contact page ✅</div></div></div>
+          <div class="task-item" style="cursor:default; background:#00d4a008; border-color:#00d4a022"><div class="task-content"><div class="task-title">Calendar (vista-scapes-appointment-booking) — on consultation page ✅</div></div></div>
+          <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22"><div class="task-content"><div class="task-title">Note: href="#" buttons in header are intentional modal triggers — NOT broken links</div><div class="task-meta">Only the nav items (Concrete/Flagstone/Drainage/Grading/Irrigation) that link to non-existent pages are a problem</div></div></div>
+        </div>
+      </div>
+    </div>
 
     <!-- ══════════════════════════════════════
          VISTADIGITAL AI PANELS
