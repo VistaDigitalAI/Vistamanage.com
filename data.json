@@ -14,7 +14,7 @@
   },
   "platforms": {
     "vistascapesGBP": "live",
-    "vistadigitalGBP": "not_created",
+    "vistadigitalGBP": "live",
     "houzz": "needs_photos",
     "yelp": "needs_content",
     "bingPlaces": "not_claimed",
@@ -56,6 +56,6 @@
     "linkedin_created": false,
     "bbb_applied": false,
     "wikidata_updated": false,
-    "vistadigital_gbp_created": false
+    "vistadigital_gbp_created": true
   }
 }

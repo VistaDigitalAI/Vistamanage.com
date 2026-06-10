@@ -612,7 +612,7 @@
     <div class="score-chip">
       <div class="score-dot" style="background:var(--accent-red)"></div>
       <span class="label">GBP</span>
-      <span class="value" id="vd-gbp-status" style="color:var(--accent-red)">Not Created</span>
+      <span class="value" id="vd-gbp-status" style="color:var(--accent-green)">Live</span>
     </div>
     <div class="score-chip">
       <div class="score-dot" style="background:var(--accent-orange)"></div>
@@ -702,7 +702,7 @@
             <span class="nav-badge" id="badge-vd-geo">8</span>
           </button>
           <button class="nav-item" id="navbtn-vd-gbp" onclick="showPanel('vd-gbp', this)">
-            <span class="icon">📍</span> Create GBP Guide
+            <span class="icon">📍</span> Optimize GBP
             <span class="nav-badge orange">!</span>
           </button>
           <button class="nav-item" id="navbtn-vd-platforms" onclick="showPanel('vd-platforms', this)">
@@ -2359,7 +2359,7 @@ Test after each change and revert if anything breaks visually.</div>
     <div id="panel-vd-geo" class="panel">
       <div class="section-header">
         <h2>🤖 GEO + SEO Pipeline — VistaDigital AI</h2>
-        <p>Brand new site · 2/10 GEO · 5/10 SEO · 60-day target: 7/10 both</p>
+        <p>Live audit Jun 10 · SEO 54/100 · GEO 31/100 · GBP created ✅ · Goal: Broken Arrow map pack + page 1</p>
       </div>
 
       <div class="panel-tabs">
@@ -2372,98 +2372,95 @@ Test after each change and revert if anything breaks visually.</div>
       <!-- Tab 1: Tasks -->
       <div id="vd-geo-tab-tasks" class="tab-content active">
         <div class="info-grid">
-          <div class="info-card"><div class="card-label">GEO Score</div><div class="card-value" style="color:var(--accent-red)">2/10</div><div class="card-sub">AI crawlers blocked</div></div>
-          <div class="info-card"><div class="card-label">SEO Score</div><div class="card-value" style="color:var(--accent-orange)">5/10</div><div class="card-sub">Foundation exists</div></div>
-          <div class="info-card"><div class="card-label">60-Day Target</div><div class="card-value" style="color:var(--accent-blue)">7/10</div><div class="card-sub">Both GEO + SEO</div></div>
-          <div class="info-card"><div class="card-label">llms.txt</div><div class="card-value" style="color:var(--accent-red)">Missing</div><div class="card-sub">See tab above</div></div>
+          <div class="info-card"><div class="card-label">SEO Score</div><div class="card-value" style="color:var(--accent-orange)">54<span style="font-size:.5em">/100</span></div><div class="card-sub">Google NOT blocked ✅</div></div>
+          <div class="info-card"><div class="card-label">GEO Score</div><div class="card-value" style="color:var(--accent-red)">31<span style="font-size:.5em">/100</span></div><div class="card-sub">AI bots still blocked</div></div>
+          <div class="info-card"><div class="card-label">Google Business Profile</div><div class="card-value" style="color:var(--accent-green)">Created</div><div class="card-sub">Optimize + verify</div></div>
+          <div class="info-card"><div class="card-label">Map Pack</div><div class="card-value" style="color:var(--accent-red)">Not in</div><div class="card-sub">Target: top 3 Broken Arrow</div></div>
+        </div>
+        <div class="task-item" style="cursor:default; background:#00d4a00d; border-color:#00d4a033; margin-bottom:14px">
+          <div class="task-content">
+            <div class="task-title">✅ The verdict: Google was never the problem</div>
+            <div class="task-meta">Live re-audit Jun 10 (5 specialists): Googlebot &amp; Bingbot both get HTTP 200 — you CAN rank. You're invisible because (1) your GBP isn't optimized/verified yet, (2) technical issues hurt indexing (307 redirects, canonical mismatch, www/HTTP not redirecting, a 404'd image), and (3) there are no Tulsa or per-service pages. Market is thin — ~15–20 reviews makes you competitive in the Broken Arrow map pack. Open lane: "GoHighLevel agency Oklahoma" has no local competitor.</div>
+          </div>
         </div>
 
         <div class="task-group">
-          <div class="task-group-header"><h3>🚨 This Week — Unlocks All AI (30 min)</h3><span class="tag tag-red">Highest impact</span></div>
+          <div class="task-group-header"><h3>✋ What YOU Do</h3><span class="tag tag-red">Only you can do these</span></div>
 
           <div class="task-item" id="vd-g1" onclick="toggle('vd-g1','vd')">
             <div class="checkbox"><span class="checkbox-check">✓</span></div>
             <div class="task-content">
-              <div class="task-title">Turn off Cloudflare AI crawler block</div>
-              <div class="task-meta">dash.cloudflare.com → Security → Bots → OFF "Block AI Scrapers" · Currently blocking ChatGPT, Claude, Gemini, Meta AI, Google AI Overviews — all of them</div>
+              <div class="task-title">Optimize your new Google Business Profile</div>
+              <div class="task-meta">Primary category → "Internet marketing service" · add every service · paste the 750-char description (GBP Guide tab) · upload 10 real photos (logo, you, work samples — no stock) · publish 1 post · finish verification. This is the #1 lever for the map pack.</div>
             </div>
-            <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+            <div class="task-right"><span class="time-badge">45 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
           </div>
 
           <div class="task-item" id="vd-g2" onclick="toggle('vd-g2','vd')">
             <div class="checkbox"><span class="checkbox-check">✓</span></div>
             <div class="task-content">
-              <div class="task-title">Upload llms.txt to vistadigitalai.com/llms.txt</div>
-              <div class="task-meta">Full content is in the "llms.txt" tab above · Copy → upload to site root</div>
+              <div class="task-title">Cloudflare: fix redirects (3 settings, ~15 min)</div>
+              <div class="task-meta">dash.cloudflare.com → Rules → Redirect Rules: change *.html → clean URL from 307 to 301 · add www → non-www (301) · then SSL/TLS → Edge Certificates → turn ON "Always Use HTTPS". This is why inner pages aren't indexing cleanly.</div>
             </div>
-            <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+            <div class="task-right"><span class="time-badge">15 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
           </div>
 
           <div class="task-item" id="vd-g3" onclick="toggle('vd-g3','vd')">
             <div class="checkbox"><span class="checkbox-check">✓</span></div>
             <div class="task-content">
-              <div class="task-title">Replace homepage &lt;script type="application/ld+json"&gt; with LocalBusiness schema</div>
-              <div class="task-meta">Full JSON is in "Homepage Schema" tab · Fixes wrong type, adds GeoCoordinates, pricing, Person schema for Javi</div>
+              <div class="task-title">Get your first 5–10 Google reviews</div>
+              <div class="task-meta">~15–20 reviews makes you competitive in the Broken Arrow pack (competitors sit at 49–109). I'll build the auto-request flow inside your own ContractorCRM/GHL — you send it to past clients &amp; contacts.</div>
             </div>
-            <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+            <div class="task-right"><span class="time-badge">ongoing</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
           </div>
 
           <div class="task-item" id="vd-g4" onclick="toggle('vd-g4','vd')">
             <div class="checkbox"><span class="checkbox-check">✓</span></div>
             <div class="task-content">
-              <div class="task-title">Add Services Schema to /services.html as second &lt;script ld+json&gt; block</div>
-              <div class="task-meta">Full JSON is in "Services Schema" tab · 7 FAQs + pricing structure · Makes your pricing directly citable</div>
+              <div class="task-title">Cloudflare: unblock AI answer-bots (optional, recommended)</div>
+              <div class="task-meta">Security → Bots → turn OFF "Block AI Scrapers and Crawlers" (or allow OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended). You sell AI marketing — being cited in ChatGPT/Perplexity is a sales asset. Google ranking is unaffected either way.</div>
             </div>
-            <div class="task-right"><span class="time-badge">10 min</span><div class="priority-dot" style="background:var(--accent-red)"></div></div>
+            <div class="task-right"><span class="time-badge">5 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
           </div>
-        </div>
-
-        <div class="task-group">
-          <div class="task-group-header"><h3>Week 2 — E-E-A-T + Authority Signals</h3><span class="tag tag-orange">Claude writes · Javi uploads</span></div>
 
           <div class="task-item" id="vd-g5" onclick="toggle('vd-g5','vd')">
             <div class="checkbox"><span class="checkbox-check">✓</span></div>
             <div class="task-content">
-              <div class="task-title">Create GBP for VistaDigital AI (see GBP Guide tab)</div>
-              <div class="task-meta">Once verified, share the GBP URL → Claude updates sameAs in the schema</div>
+              <div class="task-title">Send me your GBP public link</div>
+              <div class="task-meta">Paste it in any session → I wire it into your schema (sameAs) and confirm the GBP address matches your site NAP (413 N Walnut Ave, Broken Arrow, OK 74012).</div>
             </div>
-            <div class="task-right"><span class="time-badge">20 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+            <div class="task-right"><span class="time-badge">2 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
           </div>
 
           <div class="task-item" id="vd-g6" onclick="toggle('vd-g6','vd')">
             <div class="checkbox"><span class="checkbox-check">✓</span></div>
             <div class="task-content">
-              <div class="task-title">Expand About page to 600+ words</div>
-              <div class="task-meta">Current: ~300 words · Copy the prompt below and paste into Claude</div>
-              <div class="copy-block" style="margin-top:8px">
-                <button class="copy-btn" onclick="copyText(this);event.stopPropagation()">Copy</button>
-                Write an expanded About page for vistadigitalai.com. 600+ words. Include: founder story (Javi Uriostegui, Broken Arrow OK, also runs VistaScapes & Design which is how he learned what actually works for local businesses), why he started the agency (needed these tools for his own business, built them, decided to offer them to others), what makes VD different (owner-operator who's run the same systems on his own business), who the ideal client is (home service contractors, local businesses), founding date (November 2025), mission. Tone: confident, personal, direct — not corporate. Add a Person JSON-LD schema block for Javi at the end.
-              </div>
+              <div class="task-title">Tell me how the site publishes</div>
+              <div class="task-meta">Cloudflare Pages (GitHub-connected or drag-drop upload) or Netlify? Once I know, I push the new pages, schema, and on-page fixes live for you.</div>
             </div>
-            <div class="task-right"><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
+            <div class="task-right"><span class="time-badge">1 min</span><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
           </div>
+        </div>
 
-          <div class="task-item" id="vd-g7" onclick="toggle('vd-g7','vd')">
-            <div class="checkbox"><span class="checkbox-check">✓</span></div>
-            <div class="task-content">
-              <div class="task-title">Create Clutch.co profile (clutch.co/agencies)</div>
-              <div class="task-meta">#1 directory AI systems cite for agency recommendations · Add VistaScapes as first case study</div>
-            </div>
-            <div class="task-right"><span class="time-badge">30 min</span><div class="priority-dot" style="background:var(--accent-orange)"></div></div>
-          </div>
+        <div class="task-group">
+          <div class="task-group-header"><h3>🤖 What CLAUDE Is Building</h3><span class="tag tag-green">Auto · no action from you</span></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">✅ Full live audit — technical, content, local, GEO, competitive (Jun 10)</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">✅ Schema package ready — LocalBusiness + FAQ + Service + Person</div><div class="task-meta">Copy-paste blocks in the Homepage Schema &amp; Services Schema tabs above</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">✅ llms.txt ready — see the llms.txt tab</div></div></div>
+          <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22"><div class="task-content"><div class="task-title">🔨 /gohighlevel-agency-oklahoma page — the open lane (fastest page-1 win)</div><div class="task-meta">No local competitor ranks for this · matches exactly what you sell</div></div></div>
+          <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22"><div class="task-content"><div class="task-title">🔨 Tulsa + per-service landing pages (local SEO, web design, Google Ads…)</div><div class="task-meta">The "missing-page" gap — every page-1 competitor ranks with these</div></div></div>
+          <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22"><div class="task-content"><div class="task-title">🔨 On-page fixes — H1 spacing bug, canonicals → clean URLs, internal links, sitemap + lastmod</div></div></div>
+          <div class="task-item" style="cursor:default; background:#4d9fff08; border-color:#4d9fff22"><div class="task-content"><div class="task-title">🔨 Review-request engine inside your ContractorCRM (GHL)</div></div></div>
+          <div class="task-item" style="cursor:default; background:#a78bfa08; border-color:#a78bfa22"><div class="task-content"><div class="task-title">⏳ Deploy everything live — once you confirm the publish method (task above)</div></div></div>
+        </div>
 
-          <div class="task-item" id="vd-g8" onclick="toggle('vd-g8','vd')">
-            <div class="checkbox"><span class="checkbox-check">✓</span></div>
-            <div class="task-content">
-              <div class="task-title">Ask Claude to build 3 city service pages</div>
-              <div class="task-meta">Copy prompt below → paste into Claude → it builds + deploys</div>
-              <div class="copy-block" style="margin-top:8px">
-                <button class="copy-btn" onclick="copyText(this);event.stopPropagation()">Copy</button>
-                Build and add a local service page to vistadigitalai.com for "SEO Agency in Tulsa, OK". 1,000+ words. H1: "SEO Agency in Tulsa, OK | VistaDigital AI". Include: Tulsa-specific neighborhoods (Midtown, South Tulsa, Brookside), local business stats, what we do for Tulsa businesses, 5-question FAQ with FAQPage schema, LocalBusiness schema with serviceArea: Tulsa. Internal links to homepage and services page. CTA with phone number. Then build the same for Broken Arrow and Bixby.
-              </div>
-            </div>
-            <div class="task-right"><div class="priority-dot" style="background:var(--accent-blue)"></div></div>
-          </div>
+        <div class="task-group">
+          <div class="task-group-header"><h3>📊 The Battlefield — who's on page 1 now</h3><span class="tag tag-orange">Live SERP data</span></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">StructureM (Tulsa) — 4.9★ · 109 reviews</div><div class="task-meta">Tulsa authority leader</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Sooner Marketing — 4.6★ · 56 reviews</div><div class="task-meta">Owns "digital marketing agency Tulsa"</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">D2 Branding — 5.0★ · 49 reviews</div><div class="task-meta">Ranks with dedicated BA + Tulsa city pages</div></div></div>
+          <div class="task-item" style="cursor:default"><div class="task-content"><div class="task-title">Big Wheel Digital (Broken Arrow)</div><div class="task-meta">Owns "marketing agency Broken Arrow" organic — your home turf to take</div></div></div>
+          <div class="task-item" style="cursor:default; background:#00d4a00d; border-color:#00d4a033"><div class="task-content"><div class="task-title">🟢 OPEN LANE: "GoHighLevel agency Oklahoma"</div><div class="task-meta">No local competitor ranks for this — and it's exactly what you sell. Your fastest page-1 win.</div></div></div>
         </div>
       </div>
 
@@ -2682,8 +2679,15 @@ Nationwide: Website design, SEO, and digital marketing available across the US</
     <!-- VD: GBP Guide -->
     <div id="panel-vd-gbp" class="panel">
       <div class="section-header">
-        <h2>📍 Create VistaDigital AI GBP</h2>
-        <p>Step-by-step — takes about 20 minutes</p>
+        <h2>📍 Optimize VistaDigital AI GBP</h2>
+        <p>✅ GBP created 6/9 — now optimize it. Use the steps below as your checklist.</p>
+      </div>
+
+      <div class="task-item" style="cursor:default; background:#00d4a00d; border-color:#00d4a033; margin-bottom:14px">
+        <div class="task-content">
+          <div class="task-title">✅ Profile created — focus on steps 3, 7 &amp; 8 to optimize</div>
+          <div class="task-meta">Two changes vs. the original guide: set your <strong>primary category to "Internet marketing service"</strong> (ranks better for local search than "Marketing Agency"), and once it's verified, paste me your GBP link so I sync it into your site schema.</div>
+        </div>
       </div>
 
       <ul class="step-list">
@@ -2706,7 +2710,7 @@ Nationwide: Website design, SEO, and digital marketing available across the US</
           <div class="step-num">3</div>
           <div class="step-content">
             <div class="step-title">Choose the right category</div>
-            <div class="step-desc">Primary: <strong>Marketing Agency</strong><br>Secondary: Website Designer · Advertising Agency<br>Do NOT pick Computer Repair or anything tech-generic.</div>
+            <div class="step-desc">Primary: <strong>Internet marketing service</strong> (stronger local-search match than "Marketing Agency")<br>Secondary: Search engine optimization service · Marketing agency · Website designer · Advertising agency<br>Do NOT pick Computer Repair or anything tech-generic.</div>
           </div>
         </li>
         <li class="step-item">
@@ -2854,7 +2858,7 @@ Nationwide: Website design, SEO, and digital marketing available across the US</
     'vd-daily':    ['vd-d1','vd-d2','vd-d3','vd-d4','vd-d5','vd-d6','vd-d7'],
     'vd-launch':   ['vd-l1','vd-l2','vd-l3','vd-l4','vd-l5'],
     'vd-clients':  ['vd-a1','vd-a2','vd-a3','vd-a4','vd-r1','vd-r2','vd-r3','vd-r4','vd-r5'],
-    'vd-geo':      ['vd-g1','vd-g2','vd-g3','vd-g4','vd-g5','vd-g6','vd-g7','vd-g8'],
+    'vd-geo':      ['vd-g1','vd-g2','vd-g3','vd-g4','vd-g5','vd-g6'],
   };
 
   function updateBadges() {
